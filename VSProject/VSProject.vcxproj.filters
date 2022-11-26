@@ -18,9 +18,6 @@
     <ClCompile Include="..\Code\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Sources\IdGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Sources\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,6 +28,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Sources\Ticket.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Sources\Seat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClInclude Include="..\Code\Headers\Ticket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\Headers\IdGenerator.h">
+    <ClInclude Include="..\Code\Headers\Seat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
