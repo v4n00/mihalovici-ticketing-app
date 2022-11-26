@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 enum class SeatAvailability {
 	FREE,
@@ -10,8 +11,7 @@ class Seat {
 private:
 	const unsigned int seatId;
 	SeatAvailability availability;
-
-	int generateId();
+	static unsigned int TOTAL_SEATS;
 
 public:
 
@@ -29,3 +29,5 @@ public:
 	Seat(const Seat& anotherSeat);
 	Seat();
 };
+
+unsigned int Seat::TOTAL_SEATS = 0;
