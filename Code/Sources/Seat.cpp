@@ -62,13 +62,11 @@ Seat::Seat(unsigned int seatId, SeatAvailability availability) {
 
 Seat::Seat(unsigned int seatId) {
 	this->seatId = seatId;
-	this->availability = SeatAvailability::FREE;
 	++TOTAL_SEATS;
 }
 
 Seat::Seat() {
 	this->seatId = ++TOTAL_SEATS;
-	this->availability = SeatAvailability::FREE;
 }
 
 // - Operators
