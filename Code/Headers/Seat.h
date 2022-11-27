@@ -9,6 +9,11 @@ enum class SeatAvailability {
 	RESERVED
 };
 
+// - SeatAvailability operators
+
+std::ostream& operator << (std::ostream& out, const SeatAvailability& availability);
+std::istream& operator >> (std::istream& in, SeatAvailability& availability);
+
 class Seat {
 private:
 	unsigned int seatId = 0;
@@ -32,26 +37,29 @@ public:
 	Seat(unsigned int seatId);
 	Seat();
 
-	// - Other operators
+	// - Operators
+
+		// copy assignment
 
 	Seat operator=(const Seat& anotherSeat);
 
-	// upgrade the seat to a paid seat
+		// upgrade the seat to a paid seat
+
 	Seat operator++();
 	Seat operator++(int);
-	// downgrade the seat to a free seat
+
+		// downgrade the seat to a free seat
+
 	Seat operator--();
 	Seat operator--(int);
 
-	// print a verbose version of the seat
+		// print a verbose version of the seat
+
 	explicit operator std::string();
 
-	// - Stream operators
+		// stream operators
 
-	friend std::ostream& operator << (std::ostream& out, const SeatAvailability availability);
 	friend std::ostream& operator << (std::ostream& out, const Seat& seat);
-
-	friend std::istream& operator >> (std::istream& in, SeatAvailability& availability);
 	friend std::istream& operator >> (std::istream& in, Seat& seat);
 };
 

@@ -7,7 +7,7 @@ int main() {
 	std::cout << a << std::endl;
 	Seat b;
 	std::cin >> b;
-	std::cout << b;
+	std::cout << (std::string) b;
 	b++;
 	return 0;
 }
