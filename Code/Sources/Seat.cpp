@@ -18,6 +18,11 @@ void Seat::setAvailability(SeatAvailability newAvailability) {
 
 // - Constructors/Destructors
 
+Seat::Seat(const Seat& anotherSeat) {
+	this->seatId = anotherSeat.seatId;
+	this->availability = anotherSeat.availability;
+}
+
 Seat::Seat(unsigned int seatId, SeatAvailability availability) {
 	this->seatId = seatId;
 	this->availability = availability;
@@ -31,6 +36,42 @@ Seat::Seat(unsigned int seatId) {
 Seat::Seat() {
 	this->seatId = ++TOTAL_SEATS;
 	this->availability = SeatAvailability::FREE;
+}
+
+// - Other operators
+
+Seat Seat::operator=(const Seat& anotherSeat) {
+	this->seatId = anotherSeat.seatId;
+	this->availability = anotherSeat.availability;
+	return *this;
+}
+
+Seat Seat::operator++() {
+	this->availability = SeatAvailability::PAID;
+	return *this;
+}
+
+Seat Seat::operator++(int) {
+	Seat temp(*this);
+	operator++();
+	return temp;
+}
+
+Seat Seat::operator--() {
+	this->availability = SeatAvailability::FREE;
+	return *this;
+}
+
+Seat Seat::operator--(int) {
+	Seat temp(*this);
+	operator--();
+	return temp;
+}
+
+Seat::operator std::string() {
+	std::stringstream ss;
+	ss << "Seat #" << this->seatId << " is currently: " << this->availability;
+	return ss.str();
 }
 
 // - Stream operators
@@ -50,7 +91,7 @@ std::ostream& operator << (std::ostream& out, const SeatAvailability availabilit
 }
 
 std::ostream& operator << (std::ostream& out, const Seat& seat) {
-	out << "Seat #" << seat.seatId << " is currently: " << seat.availability;
+	out << "#" << seat.seatId << " - " << seat.availability;
 	return out;
 }
 

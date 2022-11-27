@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <sstream>
 
 enum class SeatAvailability {
 	FREE,
@@ -33,10 +34,17 @@ public:
 
 	// - Other operators
 
+	Seat operator=(const Seat& anotherSeat);
+
 	// upgrade the seat to a paid seat
 	Seat operator++();
+	Seat operator++(int);
 	// downgrade the seat to a free seat
 	Seat operator--();
+	Seat operator--(int);
+
+	// print a verbose version of the seat
+	explicit operator std::string();
 
 	// - Stream operators
 
