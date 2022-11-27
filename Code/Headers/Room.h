@@ -6,6 +6,13 @@
 #include "Seat.h"
 #include "Util.h"
 
+//TODO:
+// - function to see room layout, like a matrix on the console
+// - function to change a seat availability
+// - stream operators <> to easily input and output a room
+// - other operators that are needed
+// - arrange the code so it doesn't look messy
+
 class Room {
 private:
 	unsigned int roomId;
@@ -18,8 +25,7 @@ private:
 public:
 
 	void seeRoomLayout();
-	void addSeat();
-	void changeSeat();
+	void changeSeatAvailability();
 	static Seat** generateRoomOfSeats(unsigned int numberOfSeats);
 
 	// - Getters/Setters

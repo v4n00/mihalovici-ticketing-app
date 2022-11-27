@@ -4,7 +4,7 @@ unsigned int Room::TOTAL_ROOMS = 0;
 
 Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
 	Seat** rez = new Seat * [numberOfSeats];
-	for (int i = 0; i < numberOfSeats; ++i)
+	for (size_t i = 0; i < numberOfSeats; ++i)
 		rez[i] = new Seat();
 	return rez;
 }
@@ -80,7 +80,7 @@ Room::Room() {
 
 Room::~Room() {
 	delete[] name;
-	for (int i = 0; i < this->numberOfSeats; ++i)
+	for (size_t i = 0; i < this->numberOfSeats; ++i)
 		delete seats[i];
 	delete[] seats;
 }
