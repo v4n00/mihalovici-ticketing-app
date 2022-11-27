@@ -21,7 +21,7 @@
     <ClCompile Include="..\Code\Sources\Event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Sources\Location.cpp">
+    <ClCompile Include="..\Code\Sources\Room.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Sources\Menu.cpp">
@@ -33,12 +33,15 @@
     <ClCompile Include="..\Code\Sources\Seat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Sources\Util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Code\Headers\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\Headers\Location.h">
+    <ClInclude Include="..\Code\Headers\Room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\Headers\Menu.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\Headers\Seat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Headers\Util.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

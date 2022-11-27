@@ -21,17 +21,19 @@
   <ItemGroup>
     <ClCompile Include="..\Code\Source.cpp" />
     <ClCompile Include="..\Code\Sources\Event.cpp" />
-    <ClCompile Include="..\Code\Sources\Location.cpp" />
+    <ClCompile Include="..\Code\Sources\Room.cpp" />
     <ClCompile Include="..\Code\Sources\Menu.cpp" />
     <ClCompile Include="..\Code\Sources\Seat.cpp" />
     <ClCompile Include="..\Code\Sources\Ticket.cpp" />
+    <ClCompile Include="..\Code\Sources\Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Code\Headers\Event.h" />
-    <ClInclude Include="..\Code\Headers\Location.h" />
+    <ClInclude Include="..\Code\Headers\Room.h" />
     <ClInclude Include="..\Code\Headers\Menu.h" />
     <ClInclude Include="..\Code\Headers\Seat.h" />
     <ClInclude Include="..\Code\Headers\Ticket.h" />
+    <ClInclude Include="..\Code\Headers\Util.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
