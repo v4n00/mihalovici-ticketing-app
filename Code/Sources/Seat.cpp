@@ -2,19 +2,6 @@
 
 unsigned int Seat::TOTAL_SEATS = 0;
 
-void Seat::print() {
-	std::cout << "Seat #" << seatId << " is currently: " << enumToString(this->availability);
-}
-
-std::string Seat::enumToString(SeatAvailability availability) {
-	switch (availability) {
-	case SeatAvailability::FREE: return "free"; break;
-	case SeatAvailability::RESERVED: return "reserved"; break;
-	case SeatAvailability::PAID: return "paid"; break;
-	default: return "unknown";
-	}
-}
-
 // - Getters/Setters
 
 int Seat::getSeatId() {

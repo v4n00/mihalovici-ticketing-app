@@ -14,11 +14,7 @@ private:
 	SeatAvailability availability;
 	static unsigned int TOTAL_SEATS;
 
-	std::string enumToString(SeatAvailability availability);
-
 public:
-
-	void print();
 
 	// - Getters/Setters
 
