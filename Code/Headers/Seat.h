@@ -16,7 +16,7 @@ std::istream& operator >> (std::istream& in, SeatAvailability& availability);
 
 class Seat {
 private:
-	unsigned int seatId = 0;
+	unsigned int seatId;
 	SeatAvailability availability = SeatAvailability::FREE;
 
 	static unsigned int TOTAL_SEATS;

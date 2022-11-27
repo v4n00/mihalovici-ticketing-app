@@ -40,7 +40,10 @@ SeatAvailability Seat::getAvailability() {
 }
 
 void Seat::setAvailability(SeatAvailability newAvailability) {
-	this->availability = newAvailability;
+	if ((int)newAvailability > 2 || (int)newAvailability < 0)
+		this->availability = SeatAvailability::FREE;
+	else
+		this->availability = newAvailability;
 }
 
 // - Constructors/Destructors
@@ -48,16 +51,19 @@ void Seat::setAvailability(SeatAvailability newAvailability) {
 Seat::Seat(const Seat& anotherSeat) {
 	this->seatId = anotherSeat.seatId;
 	this->availability = anotherSeat.availability;
+	++TOTAL_SEATS;
 }
 
 Seat::Seat(unsigned int seatId, SeatAvailability availability) {
 	this->seatId = seatId;
-	this->availability = availability;
+	this->setAvailability(availability);
+	++TOTAL_SEATS;
 }
 
 Seat::Seat(unsigned int seatId) {
 	this->seatId = seatId;
 	this->availability = SeatAvailability::FREE;
+	++TOTAL_SEATS;
 }
 
 Seat::Seat() {
