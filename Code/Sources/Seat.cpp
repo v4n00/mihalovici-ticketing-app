@@ -18,15 +18,18 @@ void Seat::setAvailability(SeatAvailability newAvailability) {
 
 // - Constructors/Destructors
 
-Seat::Seat(unsigned int seatId, SeatAvailability availability) : seatId(seatId) {
+Seat::Seat(unsigned int seatId, SeatAvailability availability) {
+	this->seatId = seatId;
 	this->availability = availability;
 }
 
-Seat::Seat(unsigned int seatId) : seatId(seatId) {
+Seat::Seat(unsigned int seatId) {
+	this->seatId = seatId;
 	this->availability = SeatAvailability::FREE;
 }
 
-Seat::Seat() : seatId(++TOTAL_SEATS) {
+Seat::Seat() {
+	this->seatId = ++TOTAL_SEATS;
 	this->availability = SeatAvailability::FREE;
 }
 

@@ -10,8 +10,9 @@ enum class SeatAvailability {
 
 class Seat {
 private:
-	unsigned int seatId;
-	SeatAvailability availability;
+	unsigned int seatId = 0;
+	SeatAvailability availability = SeatAvailability::FREE;
+
 	static unsigned int TOTAL_SEATS;
 
 public:
@@ -29,6 +30,13 @@ public:
 	Seat(unsigned int seatId, SeatAvailability availability);
 	Seat(unsigned int seatId);
 	Seat();
+
+	// - Other operators
+
+	// upgrade the seat to a paid seat
+	Seat operator++();
+	// downgrade the seat to a free seat
+	Seat operator--();
 
 	// - Stream operators
 

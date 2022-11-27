@@ -8,5 +8,6 @@ int main() {
 	Seat b;
 	std::cin >> b;
 	std::cout << b;
+	b++;
 	return 0;
 }
