@@ -45,6 +45,40 @@ Seat::Seat() : seatId(++TOTAL_SEATS) {
 
 // - Stream operators
 
-std::ostream& operator << (std::ostream& out, const Seat& c) {
-	out << 
+std::ostream& operator << (std::ostream& out, const SeatAvailability availability) {
+	switch (availability) {
+	case SeatAvailability::FREE:
+		out << "free"; break;
+	case SeatAvailability::RESERVED:
+		out << "reserved"; break;
+	case SeatAvailability::PAID:
+		out << "paid"; break;
+	default:
+		out << "unknown";
+	}
+	return out;
+}
+
+std::ostream& operator << (std::ostream& out, const Seat& seat) {
+	out << "Seat #" << seat.seatId << " is currently: " << seat.availability;
+	return out;
+}
+
+std::istream& operator >> (std::istream& in, SeatAvailability& availability) {
+	int i = 0;
+	if (!(in >> i) || i > 2) {
+		availability = (SeatAvailability)0;
+		return in;
+	}
+	else
+		availability = (SeatAvailability)i;
+	return in;
+}
+
+std::istream& operator >> (std::istream& in, Seat& seat) {
+	std::cout << "Insert seatId: ";
+	in >> seat.seatId;
+	std::cout << "Insert availability: ";
+	in >> seat.availability;
+	return in;
 }

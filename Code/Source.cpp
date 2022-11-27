@@ -4,8 +4,9 @@
 
 int main() {
 	Seat a;
+	std::cout << a << std::endl;
 	Seat b;
-	a.print();
-	b.print();
+	std::cin >> b;
+	std::cout << b;
 	return 0;
 }

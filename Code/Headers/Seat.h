@@ -10,7 +10,7 @@ enum class SeatAvailability {
 
 class Seat {
 private:
-	const unsigned int seatId;
+	unsigned int seatId;
 	SeatAvailability availability;
 	static unsigned int TOTAL_SEATS;
 
@@ -36,7 +36,10 @@ public:
 
 	// - Stream operators
 
-	friend std::ostream& operator << (std::ostream& out, const Seat& c);
-	friend std::istream& operator >> (std::istream& in, Seat& c);
+	friend std::ostream& operator << (std::ostream& out, const SeatAvailability availability);
+	friend std::ostream& operator << (std::ostream& out, const Seat& seat);
+
+	friend std::istream& operator >> (std::istream& in, SeatAvailability& availability);
+	friend std::istream& operator >> (std::istream& in, Seat& seat);
 };
 
