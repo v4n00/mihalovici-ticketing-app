@@ -45,6 +45,17 @@ void Seat::setAvailability(SeatAvailability newAvailability) {
 		this->availability = newAvailability;
 }
 
+// - Public
+
+char Seat::getAvailabilityAsSymbol() {
+	if (availability == SeatAvailability::FREE)
+		return '-';
+	if (availability == SeatAvailability::PAID)
+		return '+';
+	if (availability == SeatAvailability::RESERVED)
+		return '/';
+}
+
 // - Getters
 
 int Seat::getSeatId() {

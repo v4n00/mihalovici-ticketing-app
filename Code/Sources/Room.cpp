@@ -2,17 +2,45 @@
 
 unsigned int Room::TOTAL_ROOMS = 0;
 
-Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
-	Seat** rez = new Seat * [numberOfSeats];
-	for (size_t i = 0; i < numberOfSeats; ++i)
-		rez[i] = new Seat();
-	return rez;
+void Room::printRoomLayout() {
+	size_t i, j, totalSeats, numberOfColumns;
+	// 17 seats / 3 rows => 6 columns
+	// 15 seats / 3 rows => 5 columns
+	numberOfColumns = numberOfSeats % numberOfRows == 0 ? numberOfSeats / numberOfRows : (size_t)(numberOfSeats / numberOfRows) + 1;
+	totalSeats = numberOfSeats;
+
+	std::cout << "Room #" << roomId << " \"" << name << "\"" << std::endl;
+
+	std::cout << "R\\C ";
+	for (j = numberOfColumns; j > 0; --j) {
+		std::cout << std::setw(3) << j << " ";
+	}
+	std::cout << std::endl;
+	for (i = numberOfRows; i > 0; --i) {
+		std::cout << std::setw(2) << std::right << i << " ";
+		for (j = numberOfColumns; j > 0 && totalSeats > 0; --j) {
+			totalSeats--;
+			std::cout << std::setw(4) << std::right << seats[totalSeats]->getAvailabilityAsSymbol();
+		}
+		std::cout << std::endl;
+	}
+	std::cout << std::endl << std::setw(5) << " ";
+	for (j = numberOfColumns * 4 - 1; j > 0; --j)
+		std::cout << "x";
+	std::cout << "  <- the screen" << std::endl;
 }
 
 void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability) {
 	for (size_t i = 0; i < this->numberOfSeats; ++i)
 		if (this->seats[i]->getSeatId() == seatId)
 			this->seats[i]->setAvailability(newAvailability);
+}
+
+Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
+	Seat** rez = new Seat * [numberOfSeats];
+	for (size_t i = 0; i < numberOfSeats; ++i)
+		rez[i] = new Seat();
+	return rez;
 }
 
 // - Getters/Setters
@@ -88,13 +116,13 @@ Room::Room(const Room& anotherRoom) {
 	TOTAL_ROOMS++;
 }
 
-Room::Room(const char* name, bool isVIP, unsigned int n) {
-	this->setRoomId(TOTAL_ROOMS);
+Room::Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRows) {
+	this->setRoomId(++TOTAL_ROOMS);
 	this->setName(name);
 	this->setType(isVIP);
 	this->setNumberOfSeats(n);
+	this->setNumberOfRows(numberOfRows);
 	this->seats = Room::generateRoomOfSeats(n);
-	TOTAL_ROOMS++;
 }
 
 Room::Room(unsigned int roomId, const char* name, bool isVIP, Seat** seats, unsigned int numberOfSeats, unsigned int numberOfRows) {

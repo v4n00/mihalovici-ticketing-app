@@ -31,12 +31,12 @@ private:
 
 public:
 
+	char getAvailabilityAsSymbol();
 
 	// - Getters
 
 	int getSeatId();
 	SeatAvailability getAvailability();
-
 
 	// - Constructors/Destructors
 
