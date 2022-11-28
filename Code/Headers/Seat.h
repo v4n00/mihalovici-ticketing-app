@@ -16,19 +16,26 @@ std::istream& operator >> (std::istream& in, SeatAvailability& availability);
 
 class Seat {
 private:
+	friend Room;
+
 	unsigned int seatId;
 	SeatAvailability availability = SeatAvailability::FREE;
 
 	static unsigned int TOTAL_SEATS;
 
+	// Setters
+
+	void setAvailability(SeatAvailability newAvailability);
+	void setSeatId(unsigned int seatId);
+
 public:
 
-	// - Getters/Setters
+
+	// - Getters
 
 	int getSeatId();
 	SeatAvailability getAvailability();
 
-	void setAvailability(SeatAvailability newAvailability);
 
 	// - Constructors/Destructors
 
@@ -43,16 +50,6 @@ public:
 
 	Seat operator=(const Seat& anotherSeat);
 
-		// upgrade the seat to a paid seat
-
-	Seat operator++();
-	Seat operator++(int);
-
-		// downgrade the seat to a free seat
-
-	Seat operator--();
-	Seat operator--(int);
-
 		// compare the seats
 
 	bool operator==(const Seat& anotherSeat);
@@ -66,5 +63,6 @@ public:
 
 	friend std::ostream& operator << (std::ostream& out, const Seat& seat);
 	friend std::istream& operator >> (std::istream& in, Seat& seat);
+
 };
 

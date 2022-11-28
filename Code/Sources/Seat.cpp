@@ -18,6 +18,8 @@ std::ostream& operator << (std::ostream& out, const SeatAvailability& availabili
 	return out;
 }
 
+// - Setters
+
 std::istream& operator >> (std::istream& in, SeatAvailability& availability) {
 	int i = 0;
 	if (!(in >> i) || i > 2) {
@@ -29,14 +31,11 @@ std::istream& operator >> (std::istream& in, SeatAvailability& availability) {
 	return in;
 }
 
-// - Getters/Setters
 
-int Seat::getSeatId() {
-	return this->seatId;
-}
-
-SeatAvailability Seat::getAvailability() {
-	return this->availability;
+void Seat::setSeatId(unsigned int seatId) {
+	if (seatId != 0)
+		this->seatId = seatId;
+	else throw;
 }
 
 void Seat::setAvailability(SeatAvailability newAvailability) {
@@ -46,57 +45,45 @@ void Seat::setAvailability(SeatAvailability newAvailability) {
 		this->availability = newAvailability;
 }
 
+// - Getters
+
+int Seat::getSeatId() {
+	return this->seatId;
+}
+
+SeatAvailability Seat::getAvailability() {
+	return this->availability;
+}
+
 // - Constructors/Destructors
 
 Seat::Seat(const Seat& anotherSeat) {
-	this->seatId = anotherSeat.seatId;
-	this->availability = anotherSeat.availability;
+	this->setSeatId(anotherSeat.seatId);
+	this->setAvailability(anotherSeat.availability);
 	++TOTAL_SEATS;
 }
 
 Seat::Seat(unsigned int seatId, SeatAvailability availability) {
-	this->seatId = seatId;
+	this->setSeatId(seatId);
 	this->setAvailability(availability);
 	++TOTAL_SEATS;
 }
 
 Seat::Seat(unsigned int seatId) {
-	this->seatId = seatId;
+	this->setSeatId(seatId);
 	++TOTAL_SEATS;
 }
 
 Seat::Seat() {
-	this->seatId = ++TOTAL_SEATS;
+	this->setSeatId(++TOTAL_SEATS);
 }
 
 // - Operators
 
 Seat Seat::operator=(const Seat& anotherSeat) {
-	this->seatId = anotherSeat.seatId;
-	this->availability = anotherSeat.availability;
+	this->setSeatId(anotherSeat.seatId);
+	this->setAvailability(anotherSeat.availability);
 	return *this;
-}
-
-Seat Seat::operator++() {
-	this->availability = SeatAvailability::PAID;
-	return *this;
-}
-
-Seat Seat::operator++(int) {
-	Seat temp(*this);
-	operator++();
-	return temp;
-}
-
-Seat Seat::operator--() {
-	this->availability = SeatAvailability::FREE;
-	return *this;
-}
-
-Seat Seat::operator--(int) {
-	Seat temp(*this);
-	operator--();
-	return temp;
 }
 
 bool Seat::operator==(const Seat& anotherSeat) {
