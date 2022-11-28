@@ -93,6 +93,7 @@ std::ostream& operator << (std::ostream& out, const Room& room) {
 }
 
 std::istream& operator >> (std::istream& in, Room& room) {
+	// inspired from https://stackoverflow.com/questions/22290891/reading-in-file-with-delimiter
 	std::string roomId;
 	std::string name;
 	std::string isVIP;

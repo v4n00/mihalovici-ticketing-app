@@ -113,6 +113,7 @@ std::ostream& operator << (std::ostream& out, const Seat& seat) {
 }
 
 std::istream& operator >> (std::istream& in, Seat& seat) {
+	// inspired from https://stackoverflow.com/questions/22290891/reading-in-file-with-delimiter
 	std::string seatId;
 	std::string availability;
 	if (std::getline(in, seatId, 'S') &&
