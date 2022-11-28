@@ -84,3 +84,34 @@ Room::~Room() {
 		delete seats[i];
 	delete[] seats;
 }
+
+std::ostream& operator << (std::ostream& out, const Room& room) {
+	out << "R" << room.roomId << "-" << room.name << "-" << room.isVIP << "-" << room.numberOfSeats << ":";
+	for (size_t i = 0; i < room.numberOfSeats; ++i)
+		out << *(room.seats[i]);
+	return out;
+}
+
+std::istream& operator >> (std::istream& in, Room& room) {
+	std::string roomId;
+	std::string name;
+	std::string isVIP;
+	std::string numberOfSeats;
+	if (std::getline(in, roomId, 'R') &&
+		std::getline(in, roomId, '-') &&
+		std::getline(in, name, '-') &&
+		std::getline(in, isVIP, '-') &&
+		std::getline(in, numberOfSeats, ':')) {
+			room.roomId = std::stoi(roomId);
+			room.name = new char[name.length() + 1];
+			strcpy_s(room.name, name.length() + 1, name.c_str());
+			room.isVIP = std::stoi(isVIP);
+			room.numberOfSeats = std::stoi(numberOfSeats);
+	}
+	room.seats = new Seat * [room.numberOfSeats];
+	for (size_t i = 0; i < room.numberOfSeats; ++i) {
+		room.seats[i] = new Seat();
+		in >> *(room.seats[i]);
+	}
+	return in;
+}
