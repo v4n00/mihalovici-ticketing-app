@@ -53,6 +53,11 @@ public:
 	Seat operator--();
 	Seat operator--(int);
 
+		// compare the seats
+
+	bool operator==(const Seat& anotherSeat);
+	bool operator!=(const Seat& anotherSeat);
+
 		// print a verbose version of the seat
 
 	explicit operator std::string();

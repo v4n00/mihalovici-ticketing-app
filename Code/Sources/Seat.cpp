@@ -99,6 +99,20 @@ Seat Seat::operator--(int) {
 	return temp;
 }
 
+bool Seat::operator==(const Seat& anotherSeat) {
+	if (this == &anotherSeat)
+		return true;
+	if (this->seatId == anotherSeat.seatId)
+		return false;
+	if (this->availability == anotherSeat.availability)
+		return false;
+	return true;
+}
+
+bool Seat::operator!=(const Seat& anotherSeat) {
+	return !(*this == anotherSeat);
+}
+
 Seat::operator std::string() {
 	std::stringstream ss;
 	ss << "Seat #" << this->seatId << " is currently: " << this->availability;
