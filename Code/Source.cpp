@@ -11,7 +11,7 @@ using namespace std;
 // implement ticket class
 
 int main() {
-	Room a("Cinema", 1, 17, 3);
+	Room a("Cinema", 1, 56, 7);
 	a.changeSeatAvailability(13, SeatAvailability::PAID);
 	a.changeSeatAvailability(10, SeatAvailability::PAID);
 	a.changeSeatAvailability(3, SeatAvailability::PAID);

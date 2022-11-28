@@ -31,6 +31,8 @@ private:
 
 public:
 
+	// - Public Interface
+
 	char getAvailabilityAsSymbol();
 
 	// - Getters
@@ -38,11 +40,13 @@ public:
 	int getSeatId();
 	SeatAvailability getAvailability();
 
-	// - Constructors/Destructors
+	// - Constructors
 
+	// copy constructor
 	Seat(const Seat& anotherSeat);
+	// make a seat from existing data
 	Seat(unsigned int seatId, SeatAvailability availability);
-	Seat(unsigned int seatId);
+	// make an empty seat
 	Seat();
 
 	// - Operators
@@ -51,12 +55,12 @@ public:
 
 	Seat operator=(const Seat& anotherSeat);
 
-		// compare the seats
+		// compare operators
 
 	bool operator==(const Seat& anotherSeat);
 	bool operator!=(const Seat& anotherSeat);
 
-		// print a verbose version of the seat
+		// string typecast, print a verbose Seat for whatever reason you might find suited
 
 	explicit operator std::string();
 

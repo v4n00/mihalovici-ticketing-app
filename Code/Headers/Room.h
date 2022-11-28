@@ -29,22 +29,25 @@ private:
 
 public:
 
+	// - Public interface
+
 	void changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability);
 	static Seat** generateRoomOfSeats(unsigned int numberOfSeats);
 
 	// - Getters
 
 	char* getName();
-	bool getVIPStatus();
+	bool getIsVIP();
 	Seat** getSeats();
 	unsigned int getNumberOfSeats();
 	unsigned int getNumberOfRows();
 
 
-	// - Constructors / Destructors
+	// - Constructors / Destructor
 
+	// copy constructor
 	Room(const Room& anotherRoom);
-	// make a room with n number of seats
+	// make a room and generate 'n' number of seats
 	Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRows);
 	// make a room from an existing set of data
 	Room(unsigned int roomId, const char* name, bool isVIP, Seat** seats, unsigned int numberOfSeats, unsigned int numberOfRows);
@@ -54,11 +57,11 @@ public:
 	
 	// - Operators
 
-		// cast operator
+		// cast operator, prints the Room layout
 	
 	explicit operator std::string();
 
-		// compare the rooms
+		// compare operators
 
 	bool operator==(const Room& anotherRoom);
 	bool operator!=(const Room& anotherRoom);

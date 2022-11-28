@@ -2,42 +2,7 @@
 
 unsigned int Room::TOTAL_ROOMS = 0;
 
-void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability) {
-	for (size_t i = 0; i < this->numberOfSeats; ++i)
-		if (this->seats[i]->getSeatId() == seatId)
-			this->seats[i]->setAvailability(newAvailability);
-}
-
-Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
-	Seat** rez = new Seat * [numberOfSeats];
-	for (size_t i = 0; i < numberOfSeats; ++i)
-		rez[i] = new Seat();
-	return rez;
-}
-
-// - Getters/Setters
-char* Room::getName() {
-	return Util::deepCopy(this->name);
-}
-
-bool Room::getVIPStatus() {
-	return this->isVIP;
-}
-
-Seat** Room::getSeats() {
-	Seat** rez = new Seat * [numberOfSeats];
-	for (size_t i = 0; i < numberOfSeats; ++i)
-		rez[i] = new Seat(*(this->seats[i]));
-	return rez;
-}
-
-unsigned int Room::getNumberOfSeats() {
-	return this->numberOfSeats;
-}
-
-unsigned int Room::getNumberOfRows() {
-	return this->numberOfRows;
-}
+// - Setters
 
 void Room::setRoomId(unsigned int roomId) {
 	if (roomId != 0)
@@ -76,7 +41,46 @@ void Room::setNumberOfRows(unsigned int numberOfRows) {
 	else throw;
 }
 
-// - Constructors / Destructors
+// - Public interface
+
+void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability) {
+	for (size_t i = 0; i < this->numberOfSeats; ++i)
+		if (this->seats[i]->getSeatId() == seatId)
+			this->seats[i]->setAvailability(newAvailability);
+}
+
+Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
+	Seat** rez = new Seat * [numberOfSeats];
+	for (size_t i = 0; i < numberOfSeats; ++i)
+		rez[i] = new Seat();
+	return rez;
+}
+
+// - Getters
+char* Room::getName() {
+	return Util::deepCopy(this->name);
+}
+
+bool Room::getIsVIP() {
+	return this->isVIP;
+}
+
+Seat** Room::getSeats() {
+	Seat** rez = new Seat * [numberOfSeats];
+	for (size_t i = 0; i < numberOfSeats; ++i)
+		rez[i] = new Seat(*(this->seats[i]));
+	return rez;
+}
+
+unsigned int Room::getNumberOfSeats() {
+	return this->numberOfSeats;
+}
+
+unsigned int Room::getNumberOfRows() {
+	return this->numberOfRows;
+}
+
+// - Constructors / Destructor
 
 Room::Room(const Room& anotherRoom) {
 	this->setRoomId(anotherRoom.roomId);
@@ -118,6 +122,8 @@ Room::~Room() {
 	delete[] seats;
 }
 
+// - Operators
+
 // cast operator
 
 Room::operator std::string() {
@@ -134,9 +140,8 @@ Room::operator std::string() {
 		<< numberOfRows << " rows and " << numberOfSeats << " seats:\n\n";
 
 	ss << "R\\C ";
-	for (j = numberOfColumns; j > 0; --j) {
+	for (j = numberOfColumns; j > 0; --j)
 		ss << std::setw(3) << j << " ";
-	}
 	ss << std::endl;
 	for (i = numberOfRows; i > 0; --i) {
 		ss << std::setw(2) << std::right << i << " ";
@@ -150,7 +155,7 @@ Room::operator std::string() {
 	ss << std::endl << std::setw(5) << " ";
 	for (j = numberOfColumns * 4 - 1; j > 0; --j)
 		ss << "x";
-	ss << "  <- the screen" << std::endl;
+	ss << "  <- the event" << std::endl;
 
 	return ss.str();
 }

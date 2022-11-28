@@ -18,8 +18,6 @@ std::ostream& operator << (std::ostream& out, const SeatAvailability& availabili
 	return out;
 }
 
-// - Setters
-
 std::istream& operator >> (std::istream& in, SeatAvailability& availability) {
 	int i = 0;
 	if (!(in >> i) || i > 2) {
@@ -31,6 +29,7 @@ std::istream& operator >> (std::istream& in, SeatAvailability& availability) {
 	return in;
 }
 
+// - Setters
 
 void Seat::setSeatId(unsigned int seatId) {
 	if (seatId != 0)
@@ -45,7 +44,7 @@ void Seat::setAvailability(SeatAvailability newAvailability) {
 		this->availability = newAvailability;
 }
 
-// - Public
+// - Public Interface
 
 char Seat::getAvailabilityAsSymbol() {
 	if (availability == SeatAvailability::FREE)
@@ -66,7 +65,7 @@ SeatAvailability Seat::getAvailability() {
 	return this->availability;
 }
 
-// - Constructors/Destructors
+// - Constructors
 
 Seat::Seat(const Seat& anotherSeat) {
 	this->setSeatId(anotherSeat.seatId);
@@ -80,22 +79,21 @@ Seat::Seat(unsigned int seatId, SeatAvailability availability) {
 	++TOTAL_SEATS;
 }
 
-Seat::Seat(unsigned int seatId) {
-	this->setSeatId(seatId);
-	++TOTAL_SEATS;
-}
-
 Seat::Seat() {
 	this->setSeatId(++TOTAL_SEATS);
 }
 
 // - Operators
 
+// copy assignment
+
 Seat Seat::operator=(const Seat& anotherSeat) {
 	this->setSeatId(anotherSeat.seatId);
 	this->setAvailability(anotherSeat.availability);
 	return *this;
 }
+
+// compare operators
 
 bool Seat::operator==(const Seat& anotherSeat) {
 	if (this == &anotherSeat)
@@ -111,13 +109,15 @@ bool Seat::operator!=(const Seat& anotherSeat) {
 	return !(*this == anotherSeat);
 }
 
+// string typecast
+
 Seat::operator std::string() {
 	std::stringstream ss;
 	ss << "Seat #" << this->seatId << " is currently: " << this->availability;
 	return ss.str();
 }
 
-// - Stream operators
+// stream operators
 
 std::ostream& operator << (std::ostream& out, const Seat& seat) {
 	out << "S" << seat.seatId << "-" << (int)seat.availability << ":";
