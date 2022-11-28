@@ -16,7 +16,8 @@ std::istream& operator >> (std::istream& in, SeatAvailability& availability);
 
 class Seat {
 private:
-	friend Room;
+
+	friend class Room;
 
 	unsigned int seatId;
 	SeatAvailability availability = SeatAvailability::FREE;

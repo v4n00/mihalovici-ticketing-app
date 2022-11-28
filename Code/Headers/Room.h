@@ -8,20 +8,27 @@
 
 //TODO:
 // - function to see room layout, like a matrix on the console
-// - function to change a seat availability
-// - other operators that are needed
-// - arrange the code so it doesn't look messy
+// - function to change a seat availability relatively
 
 class Room {
 private:
 	unsigned int roomId;
 	char* name = nullptr;
 	bool isVIP = false;
-	Seat** seats = nullptr;
 	unsigned int numberOfSeats = 0;
 	unsigned int numberOfRows = 0;
+	Seat** seats = nullptr;
 
 	static unsigned int TOTAL_ROOMS;
+
+	// - Setters
+
+	void setRoomId(unsigned int roomId);
+	void setName(const char* name);
+	void setType(const bool isVIP);
+	void setNumberOfSeats(unsigned int numberOfSeats);
+	void setNumberOfRows(unsigned int numberOfRows);
+	void setSeats(Seat** anotherSeats);
 
 public:
 
@@ -29,14 +36,7 @@ public:
 	void changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability);
 	static Seat** generateRoomOfSeats(unsigned int numberOfSeats);
 
-	// - Getters/Setters
-
-	void setRoomId(unsigned int roomId);
-	void setName(const char* name);
-	void setType(const bool isVIP);
-	void setNumberOfSeats(unsigned int numberOfSeats);
-	void setSeats(Seat** anotherSeats);
-	void setNumberOfRows(unsigned int numberOfRows);
+	// - Getters
 
 	char* getName();
 	bool getVIPStatus();
@@ -61,6 +61,11 @@ public:
 		// cast operator
 	
 	explicit operator std::string();
+
+		// compare the rooms
+
+	bool operator==(const Room& anotherRoom);
+	bool operator!=(const Room& anotherRoom);
 
 		// stream operators
 

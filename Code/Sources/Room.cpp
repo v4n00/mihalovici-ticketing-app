@@ -9,7 +9,6 @@ Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
 	return rez;
 }
 
-// TODO:
 void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability) {
 	for (size_t i = 0; i < this->numberOfSeats; ++i)
 		if (this->seats[i]->getSeatId() == seatId)
@@ -129,6 +128,31 @@ Room::operator std::string() {
 	for (size_t i = 0; i < numberOfSeats; ++i)
 		ss << (std::string) * (this->seats[i]) << std::endl;
 	return ss.str();
+}
+
+// compare operator
+
+bool Room::operator==(const Room& anotherRoom) {
+	if (this == &anotherRoom)
+		return true;
+	if (roomId != anotherRoom.roomId)
+		return false;
+	if (strcmp(name, anotherRoom.name) != 0)
+		return false;
+	if (isVIP != anotherRoom.isVIP)
+		return false;
+	if (numberOfSeats != anotherRoom.numberOfSeats)
+		return false;
+	if (numberOfRows != anotherRoom.numberOfRows)
+		return false;
+	for (size_t i = 0; i < numberOfSeats; ++i)
+		if (seats[i] != anotherRoom.seats[i])
+			return false;
+	return true;
+}
+
+bool Room::operator!=(const Room& anotherRoom) {
+	return !(*this == anotherRoom);
 }
 
 // stream operators
