@@ -2,34 +2,6 @@
 
 unsigned int Room::TOTAL_ROOMS = 0;
 
-void Room::printRoomLayout() {
-	size_t i, j, totalSeats, numberOfColumns;
-	// 17 seats / 3 rows => 6 columns
-	// 15 seats / 3 rows => 5 columns
-	numberOfColumns = numberOfSeats % numberOfRows == 0 ? numberOfSeats / numberOfRows : (size_t)(numberOfSeats / numberOfRows) + 1;
-	totalSeats = numberOfSeats;
-
-	std::cout << "Room #" << roomId << " \"" << name << "\"" << std::endl;
-
-	std::cout << "R\\C ";
-	for (j = numberOfColumns; j > 0; --j) {
-		std::cout << std::setw(3) << j << " ";
-	}
-	std::cout << std::endl;
-	for (i = numberOfRows; i > 0; --i) {
-		std::cout << std::setw(2) << std::right << i << " ";
-		for (j = numberOfColumns; j > 0 && totalSeats > 0; --j) {
-			totalSeats--;
-			std::cout << std::setw(4) << std::right << seats[totalSeats]->getAvailabilityAsSymbol();
-		}
-		std::cout << std::endl;
-	}
-	std::cout << std::endl << std::setw(5) << " ";
-	for (j = numberOfColumns * 4 - 1; j > 0; --j)
-		std::cout << "x";
-	std::cout << "  <- the screen" << std::endl;
-}
-
 void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability) {
 	for (size_t i = 0; i < this->numberOfSeats; ++i)
 		if (this->seats[i]->getSeatId() == seatId)
@@ -150,11 +122,36 @@ Room::~Room() {
 
 Room::operator std::string() {
 	std::stringstream ss;
+	size_t i, j, totalSeats, numberOfColumns;
+
 	std::string isVIP = this->isVIP ? "VIP" : "not VIP";
+	// 17 seats / 3 rows => 6 columns
+	// 15 seats / 3 rows => 5 columns
+	numberOfColumns = numberOfSeats % numberOfRows == 0 ? numberOfSeats / numberOfRows : (size_t)(numberOfSeats / numberOfRows) + 1;
+	totalSeats = numberOfSeats;
+
 	ss << "Room #" << roomId << " named \"" << name << "\"" << " is " << isVIP << ", has "
-		<< numberOfRows << " rows and " << numberOfSeats << " seats:" << std::endl;
-	for (size_t i = 0; i < numberOfSeats; ++i)
-		ss << (std::string) * (this->seats[i]) << std::endl;
+		<< numberOfRows << " rows and " << numberOfSeats << " seats:\n\n";
+
+	ss << "R\\C ";
+	for (j = numberOfColumns; j > 0; --j) {
+		ss << std::setw(3) << j << " ";
+	}
+	ss << std::endl;
+	for (i = numberOfRows; i > 0; --i) {
+		ss << std::setw(2) << std::right << i << " ";
+		for (j = numberOfColumns; j > 0 && totalSeats > 0; --j) {
+			totalSeats--;
+			ss << std::setw(4) << std::right << seats[totalSeats]->getAvailabilityAsSymbol();
+		}
+		ss << std::endl;
+	}
+
+	ss << std::endl << std::setw(5) << " ";
+	for (j = numberOfColumns * 4 - 1; j > 0; --j)
+		ss << "x";
+	ss << "  <- the screen" << std::endl;
+
 	return ss.str();
 }
 

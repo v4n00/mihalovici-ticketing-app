@@ -29,7 +29,6 @@ private:
 
 public:
 
-	void printRoomLayout();
 	void changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability);
 	static Seat** generateRoomOfSeats(unsigned int numberOfSeats);
 
