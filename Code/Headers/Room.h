@@ -31,6 +31,7 @@ public:
 
 	// - Public interface
 
+	void printLayout(std::ostream& out = std::cout);
 	void changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability);
 	static Seat** generateRoomOfSeats(unsigned int numberOfSeats);
 
@@ -56,10 +57,6 @@ public:
 	~Room();
 	
 	// - Operators
-
-		// cast operator, prints the Room layout
-	
-	explicit operator std::string();
 
 		// compare operators
 

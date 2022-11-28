@@ -16,6 +16,6 @@ int main() {
 	a.changeSeatAvailability(10, SeatAvailability::PAID);
 	a.changeSeatAvailability(3, SeatAvailability::PAID);
 	a.changeSeatAvailability(4, SeatAvailability::RESERVED);
-	cout << (string)a;
+	a.printLayout();
 	return 0;
 }
