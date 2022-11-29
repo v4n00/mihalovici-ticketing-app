@@ -24,7 +24,7 @@ private:
 
 	static unsigned int TOTAL_SEATS;
 
-	// Setters
+	// - Setters
 
 	void setAvailability(SeatAvailability newAvailability);
 	void setSeatId(unsigned int seatId);

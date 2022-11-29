@@ -26,6 +26,8 @@ private:
 	void setNumberOfRows(unsigned int numberOfRows);
 	void setSeats(Seat** anotherSeats);
 
+	// - Private Interface
+
 	unsigned int getNumberOfColumns();
 
 public:
