@@ -19,7 +19,7 @@ private:
 
 	friend class Room;
 
-	unsigned int seatId;
+	unsigned int seatId = 0;
 	SeatAvailability availability = SeatAvailability::FREE;
 
 	static unsigned int TOTAL_SEATS;

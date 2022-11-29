@@ -2,11 +2,11 @@
 #include <string>
 #include "Headers/Seat.h"
 #include "Headers/Room.h"
+#include "Headers/Event.h"
 
 using namespace std;
 
 //TODO:
-// Room - function to change a seat availability relatively
 // implement event class
 // implement ticket class
 
@@ -17,5 +17,8 @@ int main() {
 	a.changeSeatAvailability(3, 3, SeatAvailability::PAID);
 	a.changeSeatAvailability(7, 8, SeatAvailability::PAID);
 	a.printLayout();
+
+	Event b;
+
 	return 0;
 }

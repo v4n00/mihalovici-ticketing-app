@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <string.h>
 #include <sstream>
 #include <iomanip>
 #include "Seat.h"
@@ -9,7 +8,7 @@
 
 class Room {
 private:
-	unsigned int roomId;
+	unsigned int roomId = 0;
 	char* name = nullptr;
 	bool isVIP = false;
 	unsigned int numberOfSeats = 0;
