@@ -67,7 +67,7 @@ public:
 
 		// typecast operator
 
-	operator std::string();
+	explicit operator std::string();
 
 		// compare operators
 
