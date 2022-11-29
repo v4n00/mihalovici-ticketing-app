@@ -53,6 +53,7 @@ char Seat::getAvailabilityAsSymbol() {
 		return '+';
 	if (availability == SeatAvailability::RESERVED)
 		return '/';
+	return '?';
 }
 
 // - Getters

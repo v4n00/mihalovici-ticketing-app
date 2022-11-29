@@ -12,10 +12,10 @@ using namespace std;
 
 int main() {
 	Room a("Cinema", 1, 56, 7);
-	a.changeSeatAvailability(13, SeatAvailability::PAID);
-	a.changeSeatAvailability(10, SeatAvailability::PAID);
-	a.changeSeatAvailability(3, SeatAvailability::PAID);
-	a.changeSeatAvailability(4, SeatAvailability::RESERVED);
+	a.changeSeatAvailability(1, 1, SeatAvailability::PAID);
+	a.changeSeatAvailability(1, 2, SeatAvailability::PAID);
+	a.changeSeatAvailability(3, 3, SeatAvailability::PAID);
+	a.changeSeatAvailability(7, 8, SeatAvailability::PAID);
 	a.printLayout();
 	return 0;
 }

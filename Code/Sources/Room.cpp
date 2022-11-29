@@ -41,15 +41,19 @@ void Room::setNumberOfRows(unsigned int numberOfRows) {
 	else throw;
 }
 
+unsigned int Room::getNumberOfColumns() {
+	return numberOfSeats % numberOfRows == 0 ? numberOfSeats / numberOfRows : (size_t)(numberOfSeats / numberOfRows) + 1;
+}
+
 // - Public interface
 
-void Room::printLayout(std::ostream& out = std::cout) {
+void Room::printLayout(std::ostream& out) {
 	size_t i, j, totalSeats, numberOfColumns;
 
 	std::string isVIP = this->isVIP ? "VIP" : "not VIP";
 	// 17 seats / 3 rows => 6 columns
 	// 15 seats / 3 rows => 5 columns
-	numberOfColumns = numberOfSeats % numberOfRows == 0 ? numberOfSeats / numberOfRows : (size_t)(numberOfSeats / numberOfRows) + 1;
+	numberOfColumns = getNumberOfColumns();
 	totalSeats = numberOfSeats;
 
 	out << "Room #" << roomId << " named \"" << name << "\"" << " is " << isVIP << ", has "
@@ -80,6 +84,13 @@ void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvail
 			this->seats[i]->setAvailability(newAvailability);
 }
 
+void Room::changeSeatAvailability(unsigned int row, unsigned int col, SeatAvailability newAvailability) {
+	// row 3 col 3 => seat 19
+	// row 2 col 4 => seat 12
+	// this unironically took me 1 hour to figure out
+	this->changeSeatAvailability(row*col + (row-1) * (getNumberOfColumns() - col) + seats[0]->getSeatId() - 1, newAvailability);
+}
+
 Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
 	Seat** rez = new Seat * [numberOfSeats];
 	for (size_t i = 0; i < numberOfSeats; ++i)
@@ -88,6 +99,7 @@ Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
 }
 
 // - Getters
+
 char* Room::getName() {
 	return Util::deepCopy(this->name);
 }
@@ -154,6 +166,18 @@ Room::~Room() {
 }
 
 // - Operators
+
+// typecast operator
+
+Room::operator std::string() {
+	std::stringstream ss;
+	std::string isVIP = this->isVIP ? "VIP" : "not VIP";
+	ss << "Room #" << roomId << " named \"" << name << "\"" << " is " << isVIP << ", has "
+		<< numberOfRows << " rows and " << numberOfSeats << " seats:" << std::endl;
+	for (size_t i = 0; i < numberOfSeats; ++i)
+		ss << (std::string) * (this->seats[i]) << std::endl;
+	return ss.str();
+}
 
 // compare operator
 

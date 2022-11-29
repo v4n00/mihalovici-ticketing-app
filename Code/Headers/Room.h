@@ -27,12 +27,17 @@ private:
 	void setNumberOfRows(unsigned int numberOfRows);
 	void setSeats(Seat** anotherSeats);
 
+	unsigned int getNumberOfColumns();
+
 public:
 
 	// - Public interface
 
 	void printLayout(std::ostream& out = std::cout);
+	// change Seat availability based on seatId
 	void changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability);
+	// change Seat availability relatively
+	void changeSeatAvailability(unsigned int row, unsigned int col, SeatAvailability newAvailability);
 	static Seat** generateRoomOfSeats(unsigned int numberOfSeats);
 
 	// - Getters
@@ -42,7 +47,6 @@ public:
 	Seat** getSeats();
 	unsigned int getNumberOfSeats();
 	unsigned int getNumberOfRows();
-
 
 	// - Constructors / Destructor
 
@@ -57,6 +61,10 @@ public:
 	~Room();
 	
 	// - Operators
+
+		// typecast operator
+
+	operator std::string();
 
 		// compare operators
 
