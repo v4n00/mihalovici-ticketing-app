@@ -167,6 +167,18 @@ Room::~Room() {
 
 // - Operators
 
+// copy assignemnt
+
+Room Room::operator=(const Room& anotherRoom) {
+	this->setRoomId(anotherRoom.roomId);
+	this->setName(anotherRoom.name);
+	this->setType(anotherRoom.isVIP);
+	this->setNumberOfSeats(anotherRoom.numberOfSeats);
+	this->setSeats(anotherRoom.seats);
+	this->setNumberOfRows(anotherRoom.numberOfRows);
+	return *this;
+}
+
 // typecast operator
 
 Room::operator std::string() {

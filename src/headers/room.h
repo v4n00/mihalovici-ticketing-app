@@ -61,6 +61,10 @@ public:
 	
 	// - Operators
 
+		// copy assignment
+
+	Room operator=(const Room& anotherRoom);
+
 		// typecast operator
 
 	operator std::string();
