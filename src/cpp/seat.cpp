@@ -121,7 +121,7 @@ Seat::operator std::string() {
 // stream operators
 
 std::ostream& operator << (std::ostream& out, const Seat& seat) {
-	out << "S" << seat.seatId << "-" << (int)seat.availability << ":";
+	out << "S" << seat.seatId << "-" << (int)seat.availability << ";";
 	return out;
 }
 
@@ -131,9 +131,9 @@ std::istream& operator >> (std::istream& in, Seat& seat) {
 	std::string availability;
 	if (std::getline(in, seatId, 'S') &&
 		std::getline(in, seatId, '-') &&
-		std::getline(in, availability, ':')) {
-			seat.seatId = std::stoi(seatId);
-			seat.availability = (SeatAvailability) std::stoi(availability);
+		std::getline(in, availability, ';')) {
+			seat.setSeatId(std::stoi(seatId));
+			seat.setAvailability((SeatAvailability)std::stoi(availability));
 	}
 	return in;
 }

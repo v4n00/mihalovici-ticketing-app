@@ -210,6 +210,7 @@ std::ostream& operator << (std::ostream& out, const Room& room) {
 	out << "R" << room.roomId << "-" << room.name << "-" << room.isVIP << "-" << room.numberOfRows << "-" << room.numberOfSeats << ":";
 	for (size_t i = 0; i < room.numberOfSeats; ++i)
 		out << *(room.seats[i]);
+	out << ";";
 	return out;
 }
 
@@ -239,5 +240,6 @@ std::istream& operator >> (std::istream& in, Room& room) {
 		room.seats[i] = new Seat();
 		in >> *(room.seats[i]);
 	}
+	getline(in, roomId, ';');
 	return in;
 }
