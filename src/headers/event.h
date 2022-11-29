@@ -9,7 +9,7 @@
 class Event {
 private:
 	std::string name = "";
-	Date date;
+	/*Date date;*/
 	unsigned int runtime = 0;
 	Room* room;
 

@@ -19,21 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Code\Source.cpp" />
-    <ClCompile Include="..\Code\Sources\Event.cpp" />
-    <ClCompile Include="..\Code\Sources\Room.cpp" />
-    <ClCompile Include="..\Code\Sources\Menu.cpp" />
-    <ClCompile Include="..\Code\Sources\Seat.cpp" />
-    <ClCompile Include="..\Code\Sources\Ticket.cpp" />
-    <ClCompile Include="..\Code\Sources\Util.cpp" />
+    <ClInclude Include="..\src\headers\date.h" />
+    <ClInclude Include="..\src\headers\event.h" />
+    <ClInclude Include="..\src\headers\menu.h" />
+    <ClInclude Include="..\src\headers\room.h" />
+    <ClInclude Include="..\src\headers\seat.h" />
+    <ClInclude Include="..\src\headers\ticket.h" />
+    <ClInclude Include="..\src\headers\util.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Code\Headers\Event.h" />
-    <ClInclude Include="..\Code\Headers\Room.h" />
-    <ClInclude Include="..\Code\Headers\Menu.h" />
-    <ClInclude Include="..\Code\Headers\Seat.h" />
-    <ClInclude Include="..\Code\Headers\Ticket.h" />
-    <ClInclude Include="..\Code\Headers\Util.h" />
+    <ClCompile Include="..\src\cpp\date.cpp" />
+    <ClCompile Include="..\src\cpp\event.cpp" />
+    <ClCompile Include="..\src\cpp\menu.cpp" />
+    <ClCompile Include="..\src\cpp\room.cpp" />
+    <ClCompile Include="..\src\cpp\seat.cpp" />
+    <ClCompile Include="..\src\cpp\ticket.cpp" />
+    <ClCompile Include="..\src\cpp\util.cpp" />
+    <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
