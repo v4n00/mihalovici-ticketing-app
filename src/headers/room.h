@@ -3,8 +3,8 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
-#include "Seat.h"
-#include "Util.h"
+#include "seat.h"
+#include "util.h"
 
 class Room {
 private:

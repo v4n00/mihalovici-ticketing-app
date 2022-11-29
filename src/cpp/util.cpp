@@ -1,4 +1,4 @@
-#include "../Headers/Util.h"
+#include "../headers/util.h"
 
 char* Util::deepCopy(const char* arr) {
 	if (arr == nullptr) throw "Util::deepCopy receives null pointer";

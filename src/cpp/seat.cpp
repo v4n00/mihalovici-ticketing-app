@@ -1,4 +1,4 @@
-#include "../Headers/Seat.h"
+#include "../headers/seat.h"
 
 unsigned int Seat::TOTAL_SEATS = 0;
 
