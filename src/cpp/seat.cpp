@@ -21,7 +21,7 @@ std::ostream& operator << (std::ostream& out, const SeatAvailability& availabili
 std::istream& operator >> (std::istream& in, SeatAvailability& availability) {
 	int i = 0;
 	if (!(in >> i) || i > 2) {
-		availability = (SeatAvailability)0;
+		availability = SeatAvailability::FREE;
 		return in;
 	}
 	else
