@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <iomanip>
 
 enum class Month {
@@ -44,6 +45,10 @@ private:
 	void setYear(unsigned int year);
 	void setDay(unsigned int day);
 
+	// - Private interface
+	
+	std::string inFullCharacters(unsigned int n);
+
 public:
 
 	// - Getters
@@ -61,6 +66,14 @@ public:
 	Date();
 
 	// - Operators
+
+		// copy assignment
+
+	Date operator=(const Date& anotherDate);
+
+		// typecast operator
+
+	explicit operator std::string();
 
 		// compare operators
 

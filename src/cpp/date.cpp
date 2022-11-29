@@ -98,6 +98,13 @@ void Date::setDay(unsigned int day) {
 		throw;
 }
 
+std::string Date::inFullCharacters(unsigned int n) {
+	std::string full = std::to_string(n);
+	if(n >= 0 && n <= 9)
+		full = "0" + std::to_string(n);
+	return full;
+}
+
 // - Getters
 
 unsigned int Date::getMinutes() {
@@ -143,6 +150,43 @@ Date::Date() {
 }
 
 // - Operators
+
+// copy assignment
+
+Date Date::operator=(const Date& anotherDate) {
+	this->setMinutes(anotherDate.minutes);
+	this->setHour(anotherDate.hour);
+	this->setMonth(anotherDate.month);
+	this->setYear(anotherDate.year);
+	this->setDay(anotherDate.day);
+	return *this;
+}
+
+// typecast operator
+
+Date::operator std::string() {
+	std::stringstream ss;
+	ss << inFullCharacters(hour) << ":" << inFullCharacters(minutes) << ", " << inFullCharacters(day);
+	switch (day) {
+	case 1:
+		ss << "st"; break;
+	case 2:
+		ss << "nd"; break;
+	case 3:
+		ss << "rd"; break;
+	case 21:
+		ss << "st"; break;
+	case 22:
+		ss << "nd"; break;
+	case 23:
+		ss << "rd"; break;
+	case 31:
+		ss << "st"; break;
+	default: ss << "th";
+	}
+	ss << " of " << month << " " << year;
+	return ss.str();
+}
 
 // compare operators
 
