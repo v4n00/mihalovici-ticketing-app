@@ -91,11 +91,11 @@ Event::~Event() {
 
 // copy assignment
 
-Event Event::operator=(const Event& anotherRoom) {
-	this->setName(name);
-	this->setStartTime(startTime);
-	this->setRuntime(runtime);
-	this->setRoom(room);
+Event Event::operator=(const Event& anotherEvent) {
+	this->setName(anotherEvent.name);
+	this->setStartTime(anotherEvent.startTime);
+	this->setRuntime(anotherEvent.runtime);
+	this->setRoom(anotherEvent.room);
 	return *this;
 }
 
@@ -114,7 +114,7 @@ bool Event::operator==(const Event& anotherEvent) {
 		return true;
 	if (this->eventId != anotherEvent.eventId)
 		return false;
-	if (this->name != anotherEvent.name)
+	if (strcmp(this->name, anotherEvent.name) != 0)
 		return false;
 	if (this->startTime != startTime)
 		return false;

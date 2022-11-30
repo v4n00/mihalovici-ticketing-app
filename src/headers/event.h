@@ -46,7 +46,7 @@ public:
 
 		// copy assignment
 
-	Event operator=(const Event& anotherRoom);
+	Event operator=(const Event& anotherEvent);
 
 		// typecast operator
 
