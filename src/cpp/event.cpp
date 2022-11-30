@@ -1,6 +1,14 @@
 #include "../Headers/Event.h"
 
+unsigned int Event::TOTAL_EVENTS = 0;
+
 // - Setters
+
+void Event::setEventId(unsigned int eventId) {
+	if (eventId != 0)
+		this->eventId = eventId;
+	else throw;
+}
 
 void Event::setName(const char* name) {
 	if (strlen(name) > 1)
@@ -49,21 +57,25 @@ Room* Event::getRoom() {
 // - Constructors / Destructor
 
 Event::Event(const Event& anotherEvent) {
+	this->setEventId(anotherEvent.eventId);
 	this->setName(anotherEvent.name);
 	this->setStartTime(anotherEvent.startTime);
 	this->setRuntime(anotherEvent.runtime);
 	this->setRoom(anotherEvent.room);
+	++TOTAL_EVENTS;
 }
 
-Event::Event(const char* name, Date& startTime, unsigned int runtime, Room& room) {
+Event::Event(unsigned int eventId, const char* name, Date& startTime, unsigned int runtime, Room& room) {
+	this->setEventId(eventId);
 	this->setName(name);
 	this->setStartTime(&startTime);
 	this->setRuntime(runtime);
 	this->setRoom(&room);
+	++TOTAL_EVENTS;
 }
 
 Event::Event() {
-
+	this->setEventId(++TOTAL_EVENTS);
 }
 
 Event::~Event() {
@@ -73,6 +85,7 @@ Event::~Event() {
 	this->startTime = nullptr;
 	delete room;
 	this->room = nullptr;
+	--TOTAL_EVENTS;
 }
 
 // - Operators
@@ -91,7 +104,7 @@ Event Event::operator=(const Event& anotherRoom) {
 
 Event::operator std::string() {
 	std::stringstream ss;
-	ss << "Event \"" << name << "\" is taking place on " << (std::string)*startTime << " with a runtime of " << runtime << " minutes and takes place in " << (std::string)*room;
+	ss << "Event \"" << name << "\" is taking place on " << (std::string)*startTime << " with a runtime of " << runtime << " minutes and takes place in \"" << room->getName() << "\"";
 	return ss.str();
 }
 

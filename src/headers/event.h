@@ -7,13 +7,17 @@
 
 class Event {
 private:
+	unsigned int eventId = 0;
 	char* name = nullptr;
 	Date* startTime = nullptr;
 	unsigned int runtime = 0;
 	Room* room = nullptr;
 
+	static unsigned int TOTAL_EVENTS;
+
 	// - Setters
 
+	void setEventId(unsigned int eventId);
 	void setName(const char* name);
 	void setStartTime(Date* startTime);
 	void setRuntime(unsigned int runtime);
@@ -23,6 +27,7 @@ public:
 	// - Public interface
 
 	// - Getters
+	unsigned int getEventId();
 	char* getName();
 	Date* getStartTime();
 	unsigned int getRuntime();
@@ -32,7 +37,7 @@ public:
 
 	Event(const Event& anotherEvent);
 	// make an event from already existing data
-	Event(const char* name, Date& startTime, unsigned int runtime, Room& room);
+	Event(unsigned int eventId, const char* name, Date& startTime, unsigned int runtime, Room& room);
 	// make an empty event
 	Event();
 	~Event();

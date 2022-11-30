@@ -147,15 +147,15 @@ Room::Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRo
 	this->seats = Room::generateRoomOfSeats(n);
 }
 
-//Room::Room(unsigned int roomId, const char* name, bool isVIP, Seat** seats, unsigned int numberOfSeats, unsigned int numberOfRows) {
-//	this->setRoomId(roomId);
-//	this->setName(name);
-//	this->setType(isVIP);
-//	this->setNumberOfSeats(numberOfSeats);
-//	this->setSeats(seats);
-//	this->setNumberOfRows(numberOfRows);
-//	TOTAL_ROOMS++;
-//}
+Room::Room(unsigned int roomId, const char* name, bool isVIP, Seat** seats, unsigned int numberOfSeats, unsigned int numberOfRows) {
+	this->setRoomId(roomId);
+	this->setName(name);
+	this->setType(isVIP);
+	this->setNumberOfSeats(numberOfSeats);
+	this->setSeats(seats);
+	this->setNumberOfRows(numberOfRows);
+	++TOTAL_ROOMS;
+}
 
 Room::Room() {
 	this->setRoomId(++TOTAL_ROOMS);
@@ -166,6 +166,7 @@ Room::~Room() {
 	for (size_t i = 0; i < this->numberOfSeats; ++i)
 		delete seats[i];
 	delete[] seats;
+	--TOTAL_ROOMS;
 }
 
 // - Operators

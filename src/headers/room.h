@@ -4,7 +4,6 @@
 #include <sstream>
 #include <iomanip>
 #include "seat.h"
-#include "util.h"
 
 class Room {
 private:
@@ -24,7 +23,7 @@ private:
 	void setType(const bool isVIP);
 	void setNumberOfSeats(unsigned int numberOfSeats);
 	void setNumberOfRows(unsigned int numberOfRows);
-	void setSeats(Seat** anotherSeats);
+	void setSeats(Seat** seats);
 
 	// - Private Interface
 
@@ -57,7 +56,7 @@ public:
 	// make a room and generate 'n' number of seats
 	Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRows);
 	// make a room from an existing set of data
-	//Room(unsigned int roomId, const char* name, bool isVIP, Seat** seats, unsigned int numberOfSeats, unsigned int numberOfRows);
+	Room(unsigned int roomId, const char* name, bool isVIP, Seat** seats, unsigned int numberOfSeats, unsigned int numberOfRows);
 	// make an empty room
 	Room();
 	~Room();
