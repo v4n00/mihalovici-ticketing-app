@@ -240,13 +240,12 @@ std::istream& operator >> (std::istream& in, Room& room) {
 		std::getline(in, numberOfRows, '-') &&
 		std::getline(in, numberOfSeats, ':')) {
 			room.setRoomId(std::stoi(roomId));
-			/*room.name = new char[name.length() + 1];
-			strcpy_s(room.name, name.length() + 1, name.c_str());*/
 			room.setName(name.c_str());
 			room.setType(std::stoi(isVIP));
 			room.setNumberOfSeats(std::stoi(numberOfSeats));
 			room.setNumberOfRows(std::stoi(numberOfRows));
 	}
+	else throw;
 	room.seats = new Seat * [room.numberOfSeats];
 	for (size_t i = 0; i < room.numberOfSeats; ++i) {
 		room.seats[i] = new Seat();

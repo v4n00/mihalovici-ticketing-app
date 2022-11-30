@@ -132,8 +132,9 @@ std::istream& operator >> (std::istream& in, Seat& seat) {
 	if (std::getline(in, seatId, 'S') &&
 		std::getline(in, seatId, '-') &&
 		std::getline(in, availability, ';')) {
-			seat.setSeatId(std::stoi(seatId));
-			seat.setAvailability((SeatAvailability)std::stoi(availability));
+		seat.setSeatId(std::stoi(seatId));
+		seat.setAvailability((SeatAvailability)std::stoi(availability));
 	}
+	else throw;
 	return in;
 }

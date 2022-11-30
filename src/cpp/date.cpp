@@ -234,5 +234,6 @@ std::istream& operator >> (std::istream& in, Date& date) {
 			date.setYear(std::stoi(year));
 			date.setDay(std::stoi(day));
 	}
+	else throw;
 	return in;
 }
