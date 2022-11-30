@@ -37,6 +37,19 @@ void Location::setRunningEvents(unsigned int runningEvents) {
 	else throw;
 }
 
+// - Public Interace
+
+void Location::addEvent(const char* name, unsigned int runtime, Room& room, unsigned int minutes, unsigned int hour, unsigned int day, Month month, unsigned int year) {
+	Event** tempEvents = new Event * [runningEvents + 1];
+	if (runningEvents > 0)
+		for (size_t i = 0; i < runningEvents; ++i)
+			tempEvents[i] = events[i];
+	Date* tempDate = new Date(minutes, hour, day, month, year);
+	tempEvents[runningEvents] = new Event(name, *tempDate, runtime, room);
+	this->events = tempEvents;
+	++runningEvents;
+}
+
 // - Getters
 
 char* Location::getName() {
@@ -60,8 +73,6 @@ unsigned int Location::getRunningEvents() {
 
 // - Constructors / Destructor
 
-
-
 Location::Location(const Location& anotherLocation) {
 	this->setLocationId(anotherLocation.locationId);
 	this->setName(anotherLocation.name);
@@ -69,6 +80,13 @@ Location::Location(const Location& anotherLocation) {
 	this->setRunningEvents(anotherLocation.runningEvents);
 	this->setEvents(anotherLocation.events);
 	++TOTAL_LOCATIONS;
+}
+
+Location::Location(const char* name, const char* address) {
+	this->setLocationId(++TOTAL_LOCATIONS);
+	this->setName(name);
+	this->setAddress(address);
+	this->runningEvents = 0;
 }
 
 Location::Location(const char* name, const char* address, Event** events, unsigned int runningEvents) {

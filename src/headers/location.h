@@ -26,6 +26,9 @@ private:
 public:
 
 	// - Public Interface
+
+	// add an Event, pay attention to the arguments
+	void addEvent(const char* name, unsigned int runtime, Room& room, unsigned int minutes, unsigned int hour, unsigned int day, Month month, unsigned int year);
 	
 	// - Getters
 	unsigned int getLocationId();
@@ -38,6 +41,7 @@ public:
 
 	// copy constructor
 	Location(const Location& anotherLocation);
+	Location(const char* name, const char* address);
 	Location(const char* name, const char* address, Event** events, unsigned int runningEvents);
 	Location();
 	~Location();
