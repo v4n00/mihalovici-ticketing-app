@@ -48,7 +48,9 @@ unsigned int Room::getNumberOfColumns() {
 // - Public interface
 
 void Room::setAllSeatsToFree() {
-
+	for (size_t i = 0; i < numberOfSeats; ++i) {
+		this->seats[i]->setAvailability(SeatAvailability::FREE);
+	}
 }
 
 void Room::printLayout(std::ostream& out) {
