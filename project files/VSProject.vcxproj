@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\headers\date.h" />
     <ClInclude Include="..\src\headers\event.h" />
+    <ClInclude Include="..\src\headers\location.h" />
     <ClInclude Include="..\src\headers\menu.h" />
     <ClInclude Include="..\src\headers\room.h" />
     <ClInclude Include="..\src\headers\seat.h" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\cpp\date.cpp" />
     <ClCompile Include="..\src\cpp\event.cpp" />
+    <ClCompile Include="..\src\cpp\location.cpp" />
     <ClCompile Include="..\src\cpp\menu.cpp" />
     <ClCompile Include="..\src\cpp\room.cpp" />
     <ClCompile Include="..\src\cpp\seat.cpp" />

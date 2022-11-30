@@ -8,9 +8,8 @@
 using namespace std;
 
 //TODO:
-// today: implement event class
-// today: implement ticket class
-// today++: implement location class
+// today: implement location class
+// today++: implement ticket class
 
 int main() {
 	Date a(48, 6, 21, Month::AUGUST, 2022);
@@ -21,7 +20,8 @@ int main() {
 
 	Event d;
 	cin >> d;
-	cout << (string)d;
+	cout << (string)d << endl;
+	d.getRoom()->printLayout();
 	return 0;
 
 }
