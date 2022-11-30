@@ -49,12 +49,12 @@ public:
 
 		// compare operators
 
-	bool operator==(const Event& anotherRoom);
-	bool operator!=(const Event& anotherRoom);
+	bool operator==(const Event& anotherEvent);
+	bool operator!=(const Event& anotherEvent);
 
 		// stream operators
 
-	friend std::ostream& operator << (std::ostream& out, const Event& room);
-	friend std::istream& operator >> (std::istream& in, Event& room);
+	friend std::ostream& operator << (std::ostream& out, const Event& event);
+	friend std::istream& operator >> (std::istream& in, Event& event);
 
 };

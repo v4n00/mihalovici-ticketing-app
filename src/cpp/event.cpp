@@ -21,9 +21,9 @@ void Event::setRuntime(unsigned int runtime) {
 }
 
 void Event::setRoom(Room* room) {
-	// this is intended to be a shallow copy, an event can change the room it's in
-	// and most likely 1 room is not going to change at all
-	this->room = room;
+	if (room != nullptr)
+		this->room = new Room(*room);
+	else throw;
 }
 
 // - Getters
@@ -67,11 +67,11 @@ Event::Event() {
 }
 
 Event::~Event() {
-	delete startTime;
-	this->startTime = nullptr;
 	delete[] name;
 	this->name = nullptr;
-	// again the Room stays constant, so no need to delete the Room object
+	delete startTime;
+	this->startTime = nullptr;
+	delete room;
 	this->room = nullptr;
 }
 
@@ -93,4 +93,51 @@ Event::operator std::string() {
 	std::stringstream ss;
 	ss << "Event \"" << name << "\" is taking place on " << (std::string)*startTime << " with a runtime of " << runtime << " minutes and takes place in " << (std::string)*room;
 	return ss.str();
+}
+
+// compare operators
+
+bool Event::operator==(const Event& anotherEvent) {
+	if (this == &anotherEvent)
+		return true;
+	if (this->name != anotherEvent.name)
+		return false;
+	if (this->startTime != startTime)
+		return false;
+	if (this->runtime != runtime)
+		return false;
+	if (this->room = anotherEvent.room)
+		return false;
+	return true;
+}
+
+bool Event::operator!=(const Event& anotherEvent) {
+	return !(*this == anotherEvent);
+}
+
+// stream operators
+
+std::ostream& operator << (std::ostream& out, const Event& event) {
+	out << "E" << event.name << "-" << event.runtime << ":" << *(event.startTime) << ":" << *(event.room) << ";";
+	return out;
+}
+
+std::istream& operator >> (std::istream& in, Event& event) {
+	std::string name;
+	std::string runTime;
+	if (std::getline(in, name, 'E') &&
+		std::getline(in, name, '-') &&
+		std::getline(in, runTime, ':')) {
+			event.setName(name.c_str());
+			event.setRuntime(std::stoi(runTime));
+	}
+	else throw;
+	event.startTime = new Date();
+	if (!(in >> *(event.startTime)))
+		throw;
+	std::getline(in, name, ':');
+	event.room = new Room();
+	if (!(in >> *(event.room)))
+		throw;
+	std::getline(in, name, ';');
 }

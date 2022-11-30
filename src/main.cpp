@@ -9,12 +9,19 @@ using namespace std;
 
 //TODO:
 // today: implement event class
-// tmrw: implement ticket class
-// tmrw++: implement location class
+// today: implement ticket class
+// today++: implement location class
 
 int main() {
 	Date a(48, 6, 21, Month::AUGUST, 2022);
-	cout << (string)a;
+	Room b("Projector", 1, 2, 1);
+	Event c("Violet Evergarden", a, 98, b);
+
+	cout << c << endl << endl;
+
+	Event d;
+	cin >> d;
+	cout << (string)d;
 	return 0;
 
 }

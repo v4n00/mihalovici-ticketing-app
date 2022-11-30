@@ -213,7 +213,7 @@ bool Date::operator!=(const Date& anotherDate) {
 // stream operators
 
 std::ostream& operator << (std::ostream& out, const Date& date) {
-	out << "D-" << date.minutes << "-" << date.hour << "-" << (int)date.month << "-" << date.year << "-" << date.day << ";";
+	out << "D" << date.minutes << "-" << date.hour << "-" << (int)date.month << "-" << date.year << "-" << date.day << ";";
 	return out;
 }
 
@@ -223,8 +223,9 @@ std::istream& operator >> (std::istream& in, Date& date) {
 	std::string month;
 	std::string year;
 	std::string day;
-	if (std::getline(in, minutes, 'S') &&
+	if (std::getline(in, minutes, 'D') &&
 		std::getline(in, minutes, '-') &&
+		std::getline(in, hour, '-') &&
 		std::getline(in, month, '-') &&
 		std::getline(in, year, '-') &&
 		std::getline(in, day, ';')) {
