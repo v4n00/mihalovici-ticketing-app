@@ -81,7 +81,7 @@ Seat::Seat(const Seat& anotherSeat) {
 //}
 
 Seat::Seat() {
-	++TOTAL_SEATS;
+	this->setSeatId(++TOTAL_SEATS);
 }
 
 // - Operators

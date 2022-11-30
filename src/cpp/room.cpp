@@ -158,7 +158,7 @@ Room::Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRo
 //}
 
 Room::Room() {
-	++TOTAL_ROOMS;
+	this->setRoomId(++TOTAL_ROOMS);
 }
 
 Room::~Room() {
@@ -250,7 +250,8 @@ std::istream& operator >> (std::istream& in, Room& room) {
 	room.seats = new Seat * [room.numberOfSeats];
 	for (size_t i = 0; i < room.numberOfSeats; ++i) {
 		room.seats[i] = new Seat();
-		in >> *(room.seats[i]);
+		if (!(in >> *(room.seats[i])))
+			throw;
 	}
 	getline(in, roomId, ';');
 	return in;
