@@ -47,6 +47,10 @@ unsigned int Room::getNumberOfColumns() {
 
 // - Public interface
 
+void Room::setAllSeatsToFree() {
+
+}
+
 void Room::printLayout(std::ostream& out) {
 	size_t i, j, totalSeats, numberOfColumns;
 
@@ -55,9 +59,6 @@ void Room::printLayout(std::ostream& out) {
 	// 15 seats / 3 rows => 5 columns
 	numberOfColumns = getNumberOfColumns();
 	totalSeats = numberOfSeats;
-
-	out << "Room #" << roomId << " named \"" << name << "\"" << " is " << isVIP << ", has "
-		<< numberOfRows << " rows and " << numberOfSeats << " seats:\n\n";
 
 	out << "R\\C ";
 	for (j = numberOfColumns; j > 0; --j)
@@ -184,10 +185,8 @@ Room Room::operator=(const Room& anotherRoom) {
 Room::operator std::string() {
 	std::stringstream ss;
 	std::string isVIP = this->isVIP ? "VIP" : "not VIP";
-	ss << "Room #" << roomId << " named \"" << name << "\"" << " is " << isVIP << ", has "
-		<< numberOfRows << " rows and " << numberOfSeats << " seats:" << std::endl;
-	for (size_t i = 0; i < numberOfSeats; ++i)
-		ss << (std::string) * (this->seats[i]) << std::endl;
+	ss << "Room #" << roomId << " named \"" << name << "\"" << ", " << isVIP << ", which has "
+		<< numberOfRows << " rows and " << numberOfSeats << " seats.";
 	return ss.str();
 }
 

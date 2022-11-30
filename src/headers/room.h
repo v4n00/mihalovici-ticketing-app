@@ -34,6 +34,7 @@ public:
 
 	// - Public interface
 
+	void setAllSeatsToFree();
 	void printLayout(std::ostream& out = std::cout);
 	// change Seat availability based on seatId
 	void changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability);
