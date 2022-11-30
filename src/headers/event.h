@@ -37,7 +37,7 @@ public:
 
 	Event(const Event& anotherEvent);
 	// make an event from already existing data
-	Event(unsigned int eventId, const char* name, Date& startTime, unsigned int runtime, Room& room);
+	Event(const char* name, Date& startTime, unsigned int runtime, Room& room);
 	// make an empty event
 	Event();
 	~Event();

@@ -45,8 +45,6 @@ public:
 
 	// copy constructor
 	Seat(const Seat& anotherSeat);
-	// make a seat from existing data
-	Seat(unsigned int seatId, SeatAvailability availability);
 	// make an empty seat
 	Seat();
 	~Seat();

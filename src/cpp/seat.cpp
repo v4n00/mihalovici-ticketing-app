@@ -74,17 +74,11 @@ Seat::Seat(const Seat& anotherSeat) {
 	++TOTAL_SEATS;
 }
 
-Seat::Seat(unsigned int seatId, SeatAvailability availability) {
-	this->setSeatId(seatId);
-	this->setAvailability(availability);
-	++TOTAL_SEATS;
-}
-
 Seat::Seat() {
 	this->setSeatId(++TOTAL_SEATS);
 }
 
-Seat::Seat() {
+Seat::~Seat() {
 	--TOTAL_SEATS;
 }
 
