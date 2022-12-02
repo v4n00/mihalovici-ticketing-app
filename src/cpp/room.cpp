@@ -88,10 +88,16 @@ void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvail
 }
 
 void Room::changeSeatAvailability(unsigned int row, unsigned int col, SeatAvailability newAvailability) {
+	// this unironically took me 1 hour to figure out, DO NOT TOUCH
 	// row 3 col 3 => seat 19
 	// row 2 col 4 => seat 12
-	// this unironically took me 1 hour to figure out
-	this->changeSeatAvailability(row*col + (row-1) * (getNumberOfColumns() - col) + seats[0]->getSeatId() - 1, newAvailability);
+
+	// if we have some seats missing from the front this is suppoed to fix that
+	int factorDeCorectie1 = (numberOfSeats % numberOfRows == 0) ? 0 : (numberOfRows - (numberOfSeats % numberOfRows));
+	// method changes the availability based on a relative Seat from all the seats ever created
+	int factorDeCorectie2 = seats[0]->getSeatId() - 1 - factorDeCorectie1;
+	// :skull:
+	this->changeSeatAvailability((row*col) + (row-1) * (getNumberOfColumns() - col) + factorDeCorectie2, newAvailability);
 }
 
 Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
