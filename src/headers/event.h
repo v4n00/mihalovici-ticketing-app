@@ -1,7 +1,4 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <sstream>
 #include "room.h"
 #include "date.h"
 

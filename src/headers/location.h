@@ -1,8 +1,6 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <sstream>
 #include "event.h"
+#include "ticket.h"
 
 class Location {
 private:
