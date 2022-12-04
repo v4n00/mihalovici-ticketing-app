@@ -29,7 +29,6 @@ int main() {
 
 	cout << (string)Projector2 << endl;
 	Projector2.printLayout(cout);
-	cout << endl;
 
 	// display a location
 
