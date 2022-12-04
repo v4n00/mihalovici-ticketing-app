@@ -129,7 +129,7 @@ Location Location::operator=(const Location& anotherLocation) {
 
 Location::operator std::string() {
 	std::stringstream ss;
-	ss << "Location #" << locationId << " named \"" << name << "\" at address " << address << " has " << runningEvents << " running event(s)";
+	ss << "Location #" << locationId << " named \"" << name << "\" at address \"" << address << "\" has " << runningEvents << " running event(s)";
 	return ss.str();
 }
 

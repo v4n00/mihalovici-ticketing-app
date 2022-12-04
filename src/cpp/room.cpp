@@ -41,6 +41,12 @@ void Room::setNumberOfRows(unsigned int numberOfRows) {
 	else throw;
 }
 
+void Room::setPricePerSeat(unsigned int pricePerSeat) {
+	if (pricePerSeat > 0)
+		this->pricePerSeat = pricePerSeat;
+	else throw;
+}
+
 unsigned int Room::getNumberOfColumns() {
 	return numberOfSeats % numberOfRows == 0 ? numberOfSeats / numberOfRows : (size_t)(numberOfSeats / numberOfRows) + 1;
 }
@@ -56,7 +62,6 @@ void Room::setAllSeatsToFree() {
 void Room::printLayout(std::ostream& out) {
 	size_t i, j, totalSeats, numberOfColumns;
 
-	std::string isVIP = this->isVIP ? "VIP" : "not VIP";
 	// 17 seats / 3 rows => 6 columns
 	// 15 seats / 3 rows => 5 columns
 	numberOfColumns = getNumberOfColumns();
@@ -132,6 +137,10 @@ unsigned int Room::getNumberOfRows() {
 	return this->numberOfRows;
 }
 
+unsigned int Room::getPricePerSeat() {
+	return this->pricePerSeat;
+}
+
 // - Constructors / Destructor
 
 Room::Room(const Room& anotherRoom) {
@@ -141,15 +150,17 @@ Room::Room(const Room& anotherRoom) {
 	this->setNumberOfSeats(anotherRoom.numberOfSeats);
 	this->setSeats(anotherRoom.seats);
 	this->setNumberOfRows(anotherRoom.numberOfRows);
+	this->setPricePerSeat(anotherRoom.pricePerSeat);
 	++TOTAL_ROOMS;
 }
 
-Room::Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRows) {
+Room::Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRows, unsigned int pricePerSeat) {
 	this->setRoomId(++TOTAL_ROOMS);
 	this->setName(name);
 	this->setType(isVIP);
 	this->setNumberOfSeats(n);
 	this->setNumberOfRows(numberOfRows);
+	this->setPricePerSeat(pricePerSeat);
 	this->seats = Room::generateRoomOfSeats(n);
 }
 
@@ -176,6 +187,7 @@ Room Room::operator=(const Room& anotherRoom) {
 	this->setNumberOfSeats(anotherRoom.numberOfSeats);
 	this->setSeats(anotherRoom.seats);
 	this->setNumberOfRows(anotherRoom.numberOfRows);
+	this->setPricePerSeat(anotherRoom.pricePerSeat);
 	return *this;
 }
 
@@ -185,7 +197,7 @@ Room::operator std::string() {
 	std::stringstream ss;
 	std::string isVIP = this->isVIP ? "VIP" : "not VIP";
 	ss << "Room #" << roomId << " named \"" << name << "\"" << ", " << isVIP << ", which has "
-		<< numberOfRows << " rows and " << numberOfSeats << " seats.";
+		<< numberOfRows << " rows and " << numberOfSeats << " seats with a price of " << pricePerSeat << " RON per seat";
 	return ss.str();
 }
 
@@ -204,6 +216,8 @@ bool Room::operator==(const Room& anotherRoom) {
 		return false;
 	if (numberOfRows != anotherRoom.numberOfRows)
 		return false;
+	if (pricePerSeat != anotherRoom.pricePerSeat)
+		return false;
 	for (size_t i = 0; i < numberOfSeats; ++i)
 		if (seats[i] != anotherRoom.seats[i])
 			return false;
@@ -217,7 +231,7 @@ bool Room::operator!=(const Room& anotherRoom) {
 // stream operators
 
 std::ostream& operator << (std::ostream& out, const Room& room) {
-	out << "R" << room.roomId << "-" << room.name << "-" << room.isVIP << "-" << room.numberOfRows << "-" << room.numberOfSeats << ":";
+	out << "R" << room.roomId << "-" << room.name << "-" << room.isVIP << "-" << room.numberOfRows << "-" << room.pricePerSeat << "-" << room.numberOfSeats << ":";
 	for (size_t i = 0; i < room.numberOfSeats; ++i)
 		out << *(room.seats[i]);
 	out << ";";
@@ -231,17 +245,20 @@ std::istream& operator >> (std::istream& in, Room& room) {
 	std::string isVIP;
 	std::string numberOfSeats;
 	std::string numberOfRows;
+	std::string pricePerSeat;
 	if (std::getline(in, roomId, 'R') &&
 		std::getline(in, roomId, '-') &&
 		std::getline(in, name, '-') &&
 		std::getline(in, isVIP, '-') &&
 		std::getline(in, numberOfRows, '-') &&
+		std::getline(in, pricePerSeat, '-') &&
 		std::getline(in, numberOfSeats, ':')) {
 			room.setRoomId(std::stoi(roomId));
 			room.setName(name.c_str());
 			room.setType(std::stoi(isVIP));
 			room.setNumberOfSeats(std::stoi(numberOfSeats));
 			room.setNumberOfRows(std::stoi(numberOfRows));
+			room.setPricePerSeat(std::stoi(pricePerSeat));
 	}
 	else throw;
 	room.seats = new Seat * [room.numberOfSeats];

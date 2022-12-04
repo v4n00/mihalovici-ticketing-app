@@ -8,6 +8,7 @@ private:
 	bool isVIP = false;
 	unsigned int numberOfSeats = 0;
 	unsigned int numberOfRows = 0;
+	unsigned int pricePerSeat = 0;
 	Seat** seats = nullptr;
 
 	static unsigned int TOTAL_ROOMS;
@@ -19,6 +20,7 @@ private:
 	void setType(const bool isVIP);
 	void setNumberOfSeats(unsigned int numberOfSeats);
 	void setNumberOfRows(unsigned int numberOfRows);
+	void setPricePerSeat(unsigned int pricePerSeat);
 	void setSeats(Seat** seats);
 
 	// - Private Interface
@@ -44,13 +46,14 @@ public:
 	Seat** getSeats();
 	unsigned int getNumberOfSeats();
 	unsigned int getNumberOfRows();
+	unsigned int getPricePerSeat();
 
 	// - Constructors / Destructor
 
 	// copy constructor
 	Room(const Room& anotherRoom);
 	// make a room and generate 'n' number of seats
-	Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRows);
+	Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRows, unsigned int pricePerSeat);
 	// make an empty room
 	Room();
 	~Room();

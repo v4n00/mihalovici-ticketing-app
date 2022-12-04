@@ -3,7 +3,7 @@
 #include <time.h>
 #include "location.h"
 
-// I cannot make this class without an STL class so I'm gonna stop here
+// I cannot make this class without an STL so I'm gonna stop here
 
 class Ticket {
 public:
