@@ -54,4 +54,5 @@ public:
 	friend std::ostream& operator << (std::ostream& out, const Event& event);
 	friend std::istream& operator >> (std::istream& in, Event& event);
 
+	friend class Ticket;
 };

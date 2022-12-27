@@ -1,20 +1,23 @@
 #pragma once
 #include <stdlib.h>
-#include <time.h>
+#include <vector>
 #include "location.h"
 
 class Ticket {
-public:
-	char* id;
-	Event* event;
-	Seat* seat;
+private:
+	char* id = nullptr;
+	Event* event = nullptr;
+	unsigned int row = 0;
+	unsigned int col = 0;
 
-	static unsigned int* VALID_TICKETS;
-	static unsigned int NO_VALID_TICKETS;
+	//static std::vector<char*> VALID_TICKETS;
+	static unsigned int TOTAL_TICKETS;
 
-	// - Setter
-	void setEvent(Event* event);
-	void setTicketId(unsigned int ticketId);
+	// - Setters
+	void setId(const char* id);
+	void setEvent(Event& event);
+	void setRow(unsigned int row);
+	void setCol(unsigned int col);
 
 	// - Private interface
 
@@ -22,13 +25,19 @@ public:
 
 public:
 
-	// - Getter
-	unsigned int getTicketId();
-	Event* getEvent();
+	// - Getters
+
+	char* getId() const;
+	Event* getEvent() const;
+	unsigned int getRow() const;
+	unsigned int getCol() const;
 
 	// - Constructors / Destructor
-	Ticket(Event& event, Seat& seat);
+
+	// buys a ticket
+	Ticket(Event* event, unsigned int row, unsigned int col, bool reserve);
 	Ticket();
+	// shouldnt delete anything as tickets and seats should remain
 	~Ticket();
 
 };

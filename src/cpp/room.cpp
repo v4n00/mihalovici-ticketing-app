@@ -35,10 +35,6 @@ void Room::setPricePerSeat(unsigned int pricePerSeat) {
 	else throw;
 }
 
-unsigned int Room::getNumberOfColumns() {
-	return numberOfSeats % numberOfRows == 0 ? numberOfSeats / numberOfRows : (size_t)(numberOfSeats / numberOfRows) + 1;
-}
-
 // - Public interface
 
 void Room::setAllSeatsToFree() {
@@ -75,9 +71,12 @@ void Room::printLayout(std::ostream& out) {
 }
 
 void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability) {
-	for (size_t i = 0; i < this->numberOfSeats; ++i)
-		if (this->seats[i]->getSeatId() == seatId)
+	bool ok = 0;
+	for (size_t i = 0; i < this->numberOfSeats && ok == 0; ++i)
+		if (this->seats[i]->getId() == seatId) {
 			this->seats[i]->setAvailability(newAvailability);
+			ok = 1;
+		}
 }
 
 void Room::changeSeatAvailability(unsigned int row, unsigned int col, SeatAvailability newAvailability) {
@@ -88,7 +87,7 @@ void Room::changeSeatAvailability(unsigned int row, unsigned int col, SeatAvaila
 	// if we have some seats missing from the front this is suppoed to fix that
 	int factorDeCorectie1 = (numberOfSeats % numberOfRows == 0) ? 0 : (numberOfRows - (numberOfSeats % numberOfRows));
 	// method changes the availability based on a relative Seat from all the seats ever created
-	int factorDeCorectie2 = seats[0]->getSeatId() - 1 - factorDeCorectie1;
+	int factorDeCorectie2 = seats[0]->getId() - 1 - factorDeCorectie1;
 	// :skull:
 	this->changeSeatAvailability((row*col) + (row-1) * (getNumberOfColumns() - col) + factorDeCorectie2, newAvailability);
 }
@@ -119,6 +118,10 @@ unsigned int Room::getNumberOfSeats() {
 
 unsigned int Room::getNumberOfRows() {
 	return this->numberOfRows;
+}
+
+unsigned int Room::getNumberOfColumns() {
+	return numberOfSeats % numberOfRows == 0 ? numberOfSeats / numberOfRows : (size_t)(numberOfSeats / numberOfRows) + 1;
 }
 
 unsigned int Room::getPricePerSeat() {

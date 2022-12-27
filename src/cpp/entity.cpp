@@ -21,7 +21,7 @@ char* Entity::getName() const {
 }
 
 template<typename T>
-T* Entity::deepCopy(const T* arr, unsigned int size) const
+static T* Entity::deepCopy(const T* arr, unsigned int size)
 {
 	if (arr == nullptr)
 		throw "deepCopy receives null pointer";

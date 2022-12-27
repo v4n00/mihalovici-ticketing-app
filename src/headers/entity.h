@@ -13,5 +13,5 @@ public:
 	char* getName() const;
 
 	template<typename T>
-	T* deepCopy(const T* arr, unsigned int size) const;
+	static T* deepCopy(const T* arr, unsigned int size);
 };

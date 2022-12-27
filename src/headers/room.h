@@ -20,10 +20,6 @@ private:
 	void setPricePerSeat(unsigned int pricePerSeat);
 	void setSeats(Seat** seats);
 
-	// - Private Interface
-
-	unsigned int getNumberOfColumns();
-
 public:
 
 	// - Public interface
@@ -38,11 +34,11 @@ public:
 
 	// - Getters
 
-	char* getName();
 	bool getIsVIP();
 	Seat** getSeats();
 	unsigned int getNumberOfSeats();
 	unsigned int getNumberOfRows();
+	unsigned int getNumberOfColumns();
 	unsigned int getPricePerSeat();
 
 	// - Constructors / Destructor
