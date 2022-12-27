@@ -28,6 +28,8 @@ public:
 	void printLayout(std::ostream& out = std::cout);
 	// change Seat availability based on seatId
 	void changeSeatAvailability(unsigned int seatId, SeatAvailability newAvailability);
+	// verify the seat isnt already taken
+	void checkSeatOverlap(unsigned int row, unsigned int col, SeatAvailability newAvailability);
 	// change Seat availability relatively
 	void changeSeatAvailability(unsigned int row, unsigned int col, SeatAvailability newAvailability);
 	static Seat** generateRoomOfSeats(unsigned int numberOfSeats);

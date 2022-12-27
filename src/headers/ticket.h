@@ -1,16 +1,15 @@
 #pragma once
-#include <stdlib.h>
-#include <vector>
+#include <random>
 #include "location.h"
 
 class Ticket {
-private:
+public:
 	char* id = nullptr;
 	Event* event = nullptr;
 	unsigned int row = 0;
 	unsigned int col = 0;
 
-	//static std::vector<char*> VALID_TICKETS;
+	static std::string VALID_TICKETS;
 	static unsigned int TOTAL_TICKETS;
 
 	// - Setters
@@ -24,6 +23,11 @@ private:
 	static char* generateId();
 
 public:
+
+	// - Public interface
+
+	static bool isTicketValid(const char* id);
+	void payForReservation();
 
 	// - Getters
 

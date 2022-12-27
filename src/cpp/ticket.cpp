@@ -1,5 +1,6 @@
 #include "../headers/ticket.h"
 
+std::string Ticket::VALID_TICKETS = "";
 unsigned int Ticket::TOTAL_TICKETS = 0;
 
 // - Setters
@@ -33,12 +34,28 @@ void Ticket::setCol(unsigned int col) {
 char* Ticket::generateId() {
 	char* id = new char[9];
 	char hex[16] = { '0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f' };
-	srand(time(NULL));
+	// got this from https://stackoverflow.com/questions/19665818/generate-random-numbers-using-c11-random-library
+	// because rand() wasnt doing random numbers
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> dist(0, 15);
 	for (int i = 0; i < 8; ++i) {
-		id[i] = hex[rand() % 16];
+		id[i] = hex[dist(mt)];
 	}
 	id[8] = '\0';
 	return id;
+}
+
+// - Public interface
+
+bool Ticket::isTicketValid(const char* id) {
+	if (VALID_TICKETS.find(id) == std::string::npos)
+		return 0;
+	return 1;
+}
+
+void Ticket::payForReservation() {
+	this->event->room->changeSeatAvailability(row, col, SeatAvailability::PAID);
 }
 
 // - Getters
@@ -68,8 +85,7 @@ Ticket::Ticket(Event* event, unsigned int row, unsigned int col, bool reserve) {
 		this->event->room->changeSeatAvailability(row, col, SeatAvailability::RESERVED);
 	else
 		this->event->room->changeSeatAvailability(row, col, SeatAvailability::PAID);
-
-	//VALID_TICKETS.push_back(id);
+	VALID_TICKETS += id;
 	++TOTAL_TICKETS;
 }
 

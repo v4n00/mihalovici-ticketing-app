@@ -24,7 +24,12 @@ int main() {
 		//}
 
 			Ticket ticket1(Cinema.getEvents()[0], 2, 2, 1);
+			Ticket ticket2(Cinema.getEvents()[0], 2, 3, 1);
 			Cinema.getEvents()[0]->getRoom()->printLayout();
+
+			//cout << Ticket::VALID_TICKETS << endl;
+			cout << ticket1.getId() << endl;
+			cout << ticket2.getId();
 
 	return 0;
 }

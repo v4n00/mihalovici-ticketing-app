@@ -41,10 +41,7 @@ void Location::addEvent(const char* name, unsigned int runtime, Room& room, unsi
 // - Getters
 
 Event** Location::getEvents() {
-	Event** rez = new Event * [runningEvents];
-	for (size_t i = 0; i < runningEvents; ++i)
-		rez[i] = new Event(*(this->events[i]));
-	return rez;
+	return this->events;
 }
 
 unsigned int Location::getRunningEvents() {
