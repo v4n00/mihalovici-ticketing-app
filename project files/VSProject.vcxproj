@@ -20,23 +20,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\headers\date.h" />
+    <ClInclude Include="..\src\headers\entity.h" />
     <ClInclude Include="..\src\headers\event.h" />
     <ClInclude Include="..\src\headers\location.h" />
     <ClInclude Include="..\src\headers\menu.h" />
     <ClInclude Include="..\src\headers\room.h" />
     <ClInclude Include="..\src\headers\seat.h" />
     <ClInclude Include="..\src\headers\ticket.h" />
-    <ClInclude Include="..\src\headers\util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cpp\date.cpp" />
+    <ClCompile Include="..\src\cpp\entity.cpp" />
     <ClCompile Include="..\src\cpp\event.cpp" />
     <ClCompile Include="..\src\cpp\location.cpp" />
     <ClCompile Include="..\src\cpp\menu.cpp" />
     <ClCompile Include="..\src\cpp\room.cpp" />
     <ClCompile Include="..\src\cpp\seat.cpp" />
     <ClCompile Include="..\src\cpp\ticket.cpp" />
-    <ClCompile Include="..\src\cpp\util.cpp" />
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

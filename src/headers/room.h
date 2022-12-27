@@ -1,10 +1,9 @@
 #pragma once
 #include "seat.h"
+#include "entity.h"
 
-class Room {
+class Room : public Entity {
 private:
-	unsigned int roomId = 0;
-	char* name = nullptr;
 	bool isVIP = false;
 	unsigned int numberOfSeats = 0;
 	unsigned int numberOfRows = 0;
@@ -15,8 +14,6 @@ private:
 
 	// - Setters
 
-	void setRoomId(unsigned int roomId);
-	void setName(const char* name);
 	void setType(const bool isVIP);
 	void setNumberOfSeats(unsigned int numberOfSeats);
 	void setNumberOfRows(unsigned int numberOfRows);

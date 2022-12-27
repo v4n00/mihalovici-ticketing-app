@@ -3,7 +3,6 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
-#include "util.h"
 
 enum class SeatAvailability {
 	FREE,
@@ -21,7 +20,7 @@ private:
 
 	friend class Room;
 
-	unsigned int seatId = 0;
+	unsigned int id = 0;
 	SeatAvailability availability = SeatAvailability::FREE;
 
 	static unsigned int TOTAL_SEATS;
@@ -29,7 +28,7 @@ private:
 	// - Setters
 
 	void setAvailability(SeatAvailability newAvailability);
-	void setSeatId(unsigned int seatId);
+	void setId(unsigned int id);
 
 public:
 
@@ -39,7 +38,7 @@ public:
 
 	// - Getters
 
-	int getSeatId();
+	int getId();
 	SeatAvailability getAvailability();
 
 	// - Constructors

@@ -4,18 +4,6 @@ unsigned int Room::TOTAL_ROOMS = 0;
 
 // - Setters
 
-void Room::setRoomId(unsigned int roomId) {
-	if (roomId != 0)
-		this->roomId = roomId;
-	else throw;
-}
-
-void Room::setName(const char* name) {
-	if (strlen(name) != 1)
-		this->name = Util::deepCopy(name);
-	else throw;
-}
-
 void Room::setType(const bool isVIP) {
 	this->isVIP = isVIP;
 }
@@ -114,10 +102,6 @@ Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {
 
 // - Getters
 
-char* Room::getName() {
-	return Util::deepCopy(this->name);
-}
-
 bool Room::getIsVIP() {
 	return this->isVIP;
 }
@@ -144,7 +128,7 @@ unsigned int Room::getPricePerSeat() {
 // - Constructors / Destructor
 
 Room::Room(const Room& anotherRoom) {
-	this->setRoomId(anotherRoom.roomId);
+	this->setId(anotherRoom.id);
 	this->setName(anotherRoom.name);
 	this->setType(anotherRoom.isVIP);
 	this->setNumberOfSeats(anotherRoom.numberOfSeats);
@@ -155,7 +139,7 @@ Room::Room(const Room& anotherRoom) {
 }
 
 Room::Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRows, unsigned int pricePerSeat) {
-	this->setRoomId(++TOTAL_ROOMS);
+	this->setId(++TOTAL_ROOMS);
 	this->setName(name);
 	this->setType(isVIP);
 	this->setNumberOfSeats(n);
@@ -165,7 +149,7 @@ Room::Room(const char* name, bool isVIP, unsigned int n, unsigned int numberOfRo
 }
 
 Room::Room() {
-	this->setRoomId(++TOTAL_ROOMS);
+	this->setId(++TOTAL_ROOMS);
 }
 
 Room::~Room() {
@@ -181,7 +165,7 @@ Room::~Room() {
 // copy assignemnt
 
 Room Room::operator=(const Room& anotherRoom) {
-	this->setRoomId(anotherRoom.roomId);
+	this->setId(anotherRoom.id);
 	this->setName(anotherRoom.name);
 	this->setType(anotherRoom.isVIP);
 	this->setNumberOfSeats(anotherRoom.numberOfSeats);
@@ -196,7 +180,7 @@ Room Room::operator=(const Room& anotherRoom) {
 Room::operator std::string() {
 	std::stringstream ss;
 	std::string isVIP = this->isVIP ? "VIP" : "not VIP";
-	ss << "Room #" << roomId << " named \"" << name << "\"" << ", " << isVIP << ", which has "
+	ss << "Room #" << id << " named \"" << name << "\"" << ", " << isVIP << ", which has "
 		<< numberOfRows << " rows and " << numberOfSeats << " seats with a price of " << pricePerSeat << " RON per seat";
 	return ss.str();
 }
@@ -206,7 +190,7 @@ Room::operator std::string() {
 bool Room::operator==(const Room& anotherRoom) {
 	if (this == &anotherRoom)
 		return true;
-	if (roomId != anotherRoom.roomId)
+	if (id != anotherRoom.id)
 		return false;
 	if (strcmp(name, anotherRoom.name) != 0)
 		return false;
@@ -231,7 +215,7 @@ bool Room::operator!=(const Room& anotherRoom) {
 // stream operators
 
 std::ostream& operator << (std::ostream& out, const Room& room) {
-	out << "R" << room.roomId << "-" << room.name << "-" << room.isVIP << "-" << room.numberOfRows << "-" << room.pricePerSeat << "-" << room.numberOfSeats << ":";
+	out << "R" << room.id << "-" << room.name << "-" << room.isVIP << "-" << room.numberOfRows << "-" << room.pricePerSeat << "-" << room.numberOfSeats << ":";
 	for (size_t i = 0; i < room.numberOfSeats; ++i)
 		out << *(room.seats[i]);
 	out << ";";
@@ -240,20 +224,20 @@ std::ostream& operator << (std::ostream& out, const Room& room) {
 
 std::istream& operator >> (std::istream& in, Room& room) {
 	// inspired from https://stackoverflow.com/questions/22290891/reading-in-file-with-delimiter
-	std::string roomId;
+	std::string id;
 	std::string name;
 	std::string isVIP;
 	std::string numberOfSeats;
 	std::string numberOfRows;
 	std::string pricePerSeat;
-	if (std::getline(in, roomId, 'R') &&
-		std::getline(in, roomId, '-') &&
+	if (std::getline(in, id, 'R') &&
+		std::getline(in, id, '-') &&
 		std::getline(in, name, '-') &&
 		std::getline(in, isVIP, '-') &&
 		std::getline(in, numberOfRows, '-') &&
 		std::getline(in, pricePerSeat, '-') &&
 		std::getline(in, numberOfSeats, ':')) {
-			room.setRoomId(std::stoi(roomId));
+			room.setId(std::stoi(id));
 			room.setName(name.c_str());
 			room.setType(std::stoi(isVIP));
 			room.setNumberOfSeats(std::stoi(numberOfSeats));
@@ -267,6 +251,6 @@ std::istream& operator >> (std::istream& in, Room& room) {
 		if (!(in >> *(room.seats[i])))
 			throw;
 	}
-	getline(in, roomId, ';');
+	getline(in, id, ';');
 	return in;
 }

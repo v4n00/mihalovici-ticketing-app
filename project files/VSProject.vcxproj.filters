@@ -30,13 +30,13 @@
     <ClInclude Include="..\src\headers\ticket.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\headers\util.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\headers\date.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\headers\location.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\headers\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,9 +56,6 @@
     <ClCompile Include="..\src\cpp\ticket.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\cpp\util.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,6 +63,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cpp\location.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

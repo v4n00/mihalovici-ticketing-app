@@ -2,11 +2,8 @@
 #include "event.h"
 #include "ticket.h"
 
-class Location {
+class Location : public Entity {
 private:
-
-	unsigned int locationId;
-	char* name = nullptr;
 	char* address = nullptr;
 	Event** events = nullptr;
 	unsigned int runningEvents = 0;
@@ -15,8 +12,6 @@ private:
 
 	// - Setters
 
-	void setLocationId(unsigned int locationId);
-	void setName(const char* name);
 	void setAddress(const char* address);
 	void setEvents(Event** events);
 	void setRunningEvents(unsigned int runningEvents);
@@ -29,8 +24,7 @@ public:
 	void addEvent(const char* name, unsigned int runtime, Room& room, unsigned int minutes, unsigned int hour, unsigned int day, Month month, unsigned int year);
 	
 	// - Getters
-	unsigned int getLocationId();
-	char* getName();
+
 	char* getAddress();
 	Event** getEvents();
 	unsigned int getRunningEvents();

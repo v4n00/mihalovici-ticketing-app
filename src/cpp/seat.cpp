@@ -31,9 +31,9 @@ std::istream& operator >> (std::istream& in, SeatAvailability& availability) {
 
 // - Setters
 
-void Seat::setSeatId(unsigned int seatId) {
-	if (seatId != 0)
-		this->seatId = seatId;
+void Seat::setId(unsigned int id) {
+	if (id != 0)
+		this->id = id;
 	else throw;
 }
 
@@ -58,8 +58,8 @@ char Seat::getAvailabilityAsSymbol() {
 
 // - Getters
 
-int Seat::getSeatId() {
-	return this->seatId;
+int Seat::getId() {
+	return this->id;
 }
 
 SeatAvailability Seat::getAvailability() {
@@ -69,13 +69,13 @@ SeatAvailability Seat::getAvailability() {
 // - Constructors
 
 Seat::Seat(const Seat& anotherSeat) {
-	this->setSeatId(anotherSeat.seatId);
+	this->setId(anotherSeat.id);
 	this->setAvailability(anotherSeat.availability);
 	++TOTAL_SEATS;
 }
 
 Seat::Seat() {
-	this->setSeatId(++TOTAL_SEATS);
+	this->setId(++TOTAL_SEATS);
 }
 
 Seat::~Seat() {
@@ -87,7 +87,7 @@ Seat::~Seat() {
 // copy assignment
 
 Seat Seat::operator=(const Seat& anotherSeat) {
-	this->setSeatId(anotherSeat.seatId);
+	this->setId(anotherSeat.id);
 	this->setAvailability(anotherSeat.availability);
 	return *this;
 }
@@ -97,7 +97,7 @@ Seat Seat::operator=(const Seat& anotherSeat) {
 bool Seat::operator==(const Seat& anotherSeat) {
 	if (this == &anotherSeat)
 		return true;
-	if (this->seatId == anotherSeat.seatId)
+	if (this->id == anotherSeat.id)
 		return false;
 	if (this->availability == anotherSeat.availability)
 		return false;
@@ -112,25 +112,25 @@ bool Seat::operator!=(const Seat& anotherSeat) {
 
 Seat::operator std::string() {
 	std::stringstream ss;
-	ss << "Seat #" << this->seatId << " is currently: " << this->availability;
+	ss << "Seat #" << this->id << " is currently: " << this->availability;
 	return ss.str();
 }
 
 // stream operators
 
 std::ostream& operator << (std::ostream& out, const Seat& seat) {
-	out << "S" << seat.seatId << "-" << (int)seat.availability << ";";
+	out << "S" << seat.id << "-" << (int)seat.availability << ";";
 	return out;
 }
 
 std::istream& operator >> (std::istream& in, Seat& seat) {
 	// inspired from https://stackoverflow.com/questions/22290891/reading-in-file-with-delimiter
-	std::string seatId;
+	std::string id;
 	std::string availability;
-	if (std::getline(in, seatId, 'S') &&
-		std::getline(in, seatId, '-') &&
+	if (std::getline(in, id, 'S') &&
+		std::getline(in, id, '-') &&
 		std::getline(in, availability, ';')) {
-		seat.setSeatId(std::stoi(seatId));
+		seat.setId(std::stoi(id));
 		seat.setAvailability((SeatAvailability)std::stoi(availability));
 	}
 	else throw;

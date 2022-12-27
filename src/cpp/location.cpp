@@ -4,21 +4,9 @@ unsigned int Location::TOTAL_LOCATIONS = 0;
 
 // - Setters
 
-void Location::setLocationId(unsigned int locationId) {
-	if (locationId != 0)
-		this->locationId = locationId;
-	else throw;
-}
-
-void Location::setName(const char* name) {
-	if (strlen(name) > 1)
-		this->name = Util::deepCopy(name);
-	else throw;
-}
-
 void Location::setAddress(const char* address) {
 	if (strlen(address) > 1)
-		this->address = Util::deepCopy(address);
+		this->address = Entity::deepCopy(address, strlen(address) + 1);
 	else throw;
 }
 
@@ -52,14 +40,6 @@ void Location::addEvent(const char* name, unsigned int runtime, Room& room, unsi
 
 // - Getters
 
-char* Location::getName() {
-	return Util::deepCopy(this->name);
-}
-
-char* Location::getAddress() {
-	return Util::deepCopy(this->address);
-}
-
 Event** Location::getEvents() {
 	Event** rez = new Event * [runningEvents];
 	for (size_t i = 0; i < runningEvents; ++i)
@@ -74,7 +54,7 @@ unsigned int Location::getRunningEvents() {
 // - Constructors / Destructor
 
 Location::Location(const Location& anotherLocation) {
-	this->setLocationId(anotherLocation.locationId);
+	this->setId(anotherLocation.id);
 	this->setName(anotherLocation.name);
 	this->setAddress(anotherLocation.address);
 	this->setRunningEvents(anotherLocation.runningEvents);
@@ -83,14 +63,14 @@ Location::Location(const Location& anotherLocation) {
 }
 
 Location::Location(const char* name, const char* address) {
-	this->setLocationId(++TOTAL_LOCATIONS);
+	this->setId(++TOTAL_LOCATIONS);
 	this->setName(name);
 	this->setAddress(address);
 	this->runningEvents = 0;
 }
 
 Location::Location(const char* name, const char* address, Event** events, unsigned int runningEvents) {
-	this->setLocationId(++TOTAL_LOCATIONS);
+	this->setId(++TOTAL_LOCATIONS);
 	this->setName(name);
 	this->setAddress(address);
 	this->setRunningEvents(runningEvents);
@@ -98,7 +78,7 @@ Location::Location(const char* name, const char* address, Event** events, unsign
 }
 
 Location::Location() {
-	this->setLocationId(++TOTAL_LOCATIONS);
+	this->setId(++TOTAL_LOCATIONS);
 }
 
 Location::~Location() {
@@ -117,7 +97,7 @@ Location::~Location() {
 // copy assignment
 
 Location Location::operator=(const Location& anotherLocation) {
-	this->setLocationId(anotherLocation.locationId);
+	this->setId(anotherLocation.id);
 	this->setName(anotherLocation.name);
 	this->setAddress(anotherLocation.address);
 	this->setRunningEvents(anotherLocation.runningEvents);
@@ -129,7 +109,7 @@ Location Location::operator=(const Location& anotherLocation) {
 
 Location::operator std::string() {
 	std::stringstream ss;
-	ss << "Location #" << locationId << " named \"" << name << "\" at address \"" << address << "\" has " << runningEvents << " running event(s)";
+	ss << "Location #" << id << " named \"" << name << "\" at address \"" << address << "\" has " << runningEvents << " running event(s)";
 	return ss.str();
 }
 
@@ -138,7 +118,7 @@ Location::operator std::string() {
 bool Location::operator==(const Location& anotherLocation) {
 	if (this == &anotherLocation)
 		return true;
-	if (this->locationId != anotherLocation.locationId)
+	if (this->id != anotherLocation.id)
 		return false;
 	if (strcmp(this->name, anotherLocation.name) != 0)
 		return false;
@@ -158,7 +138,7 @@ bool Location::operator!=(const Location& anotherLocation) {
 // stream operators
 
 std::ostream& operator << (std::ostream& out, const Location& location) {
-	out << "L" << location.locationId << "-" << location.name << "-" << location.address << "-" << location.runningEvents << ":";
+	out << "L" << location.id << "-" << location.name << "-" << location.address << "-" << location.runningEvents << ":";
 	for (size_t i = 0; i < location.runningEvents; ++i)
 		out << *(location.events[i]);
 	out << ";";
@@ -166,16 +146,16 @@ std::ostream& operator << (std::ostream& out, const Location& location) {
 }
 
 std::istream& operator >> (std::istream& in, Location& location) {
-	std::string locationId;
+	std::string id;
 	std::string name;
 	std::string address;
 	std::string runningEvents;
-	if (std::getline(in, locationId, 'L') &&
-		std::getline(in, locationId, '-') &&
+	if (std::getline(in, id, 'L') &&
+		std::getline(in, id, '-') &&
 		std::getline(in, name, '-') &&
 		std::getline(in, address, '-') &&
 		std::getline(in, runningEvents, ':')) {
-		location.setLocationId(std::stoi(locationId));
+		location.setId(std::stoi(id));
 		location.setName(name.c_str());
 		location.setAddress(address.c_str());
 		location.setRunningEvents(std::stoi(runningEvents));
@@ -187,6 +167,6 @@ std::istream& operator >> (std::istream& in, Location& location) {
 		if (!(in >> *(location.events[i])))
 			throw;
 	}
-	getline(in, locationId, ';');
+	getline(in, id, ';');
 	return in;
 }

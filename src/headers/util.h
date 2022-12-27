@@ -4,6 +4,7 @@
 
 class Util {
 public:
-	// deep copies a char*
-	static char* deepCopy(const char* arr);
+	// deep copies an array
+	template<typename T>
+	static T* deepCopy(const T* arr, unsigned int size);
 };

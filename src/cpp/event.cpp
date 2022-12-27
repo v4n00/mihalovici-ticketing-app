@@ -4,18 +4,6 @@ unsigned int Event::TOTAL_EVENTS = 0;
 
 // - Setters
 
-void Event::setEventId(unsigned int eventId) {
-	if (eventId != 0)
-		this->eventId = eventId;
-	else throw;
-}
-
-void Event::setName(const char* name) {
-	if (strlen(name) > 1)
-		this->name = Util::deepCopy(name);
-	else throw;
-}
-
 void Event::setStartTime(Date* startTime) {
 	if (startTime != nullptr)
 		this->startTime = new Date(*startTime);
@@ -36,10 +24,6 @@ void Event::setRoom(Room* room) {
 
 // - Getters
 
-char* Event::getName() {
-	return Util::deepCopy(this->name);
-}
-
 Date* Event::getStartTime() {
 	Date* rez = new Date(*this->startTime);
 	return rez;
@@ -57,7 +41,7 @@ Room* Event::getRoom() {
 // - Constructors / Destructor
 
 Event::Event(const Event& anotherEvent) {
-	this->setEventId(anotherEvent.eventId);
+	this->setId(anotherEvent.id);
 	this->setName(anotherEvent.name);
 	this->setStartTime(anotherEvent.startTime);
 	this->setRuntime(anotherEvent.runtime);
@@ -66,7 +50,7 @@ Event::Event(const Event& anotherEvent) {
 }
 
 Event::Event(const char* name, Date& startTime, unsigned int runtime, Room& room) {
-	this->setEventId(++TOTAL_EVENTS);
+	this->setId(++TOTAL_EVENTS);
 	this->setName(name);
 	this->setStartTime(&startTime);
 	this->setRuntime(runtime);
@@ -74,7 +58,7 @@ Event::Event(const char* name, Date& startTime, unsigned int runtime, Room& room
 }
 
 Event::Event() {
-	this->setEventId(++TOTAL_EVENTS);
+	this->setId(++TOTAL_EVENTS);
 }
 
 Event::~Event() {
@@ -103,7 +87,7 @@ Event Event::operator=(const Event& anotherEvent) {
 
 Event::operator std::string() {
 	std::stringstream ss;
-	ss << "Event #" << eventId << " named \"" << name << "\" is taking place on " << (std::string)*startTime << " with a runtime of " << runtime << " minutes and takes place in \"" << room->getName() << "\"";
+	ss << "Event #" << id << " named \"" << name << "\" is taking place on " << (std::string)*startTime << " with a runtime of " << runtime << " minutes and takes place in Room #" << room->getId();
 	return ss.str();
 }
 
@@ -112,7 +96,7 @@ Event::operator std::string() {
 bool Event::operator==(const Event& anotherEvent) {
 	if (this == &anotherEvent)
 		return true;
-	if (this->eventId != anotherEvent.eventId)
+	if (this->id != anotherEvent.id)
 		return false;
 	if (strcmp(this->name, anotherEvent.name) != 0)
 		return false;
@@ -132,19 +116,19 @@ bool Event::operator!=(const Event& anotherEvent) {
 // stream operators
 
 std::ostream& operator << (std::ostream& out, const Event& event) {
-	out << "E" << event.eventId << "-" << event.name << "-" << event.runtime << ":" << *(event.startTime) << ":" << *(event.room) << ";";
+	out << "E" << event.id << "-" << event.name << "-" << event.runtime << ":" << *(event.startTime) << ":" << *(event.room) << ";";
 	return out;
 }
 
 std::istream& operator >> (std::istream& in, Event& event) {
-	std::string eventId;
+	std::string id;
 	std::string name;
 	std::string runTime;
-	if (std::getline(in, eventId, 'E') &&
-		std::getline(in, eventId, '-') &&
+	if (std::getline(in, id, 'E') &&
+		std::getline(in, id, '-') &&
 		std::getline(in, name, '-') &&
 		std::getline(in, runTime, ':')) {
-			event.setEventId(std::stoi(eventId));
+			event.setId(std::stoi(id));
 			event.setName(name.c_str());
 			event.setRuntime(std::stoi(runTime));
 	}
@@ -152,9 +136,10 @@ std::istream& operator >> (std::istream& in, Event& event) {
 	event.startTime = new Date();
 	if (!(in >> *(event.startTime)))
 		throw;
-	std::getline(in, eventId, ':');
+	std::getline(in, id, ':');
 	event.room = new Room();
 	if (!(in >> *(event.room)))
 		throw;
-	std::getline(in, eventId, ';');
+	std::getline(in, id, ';');
+	return in;
 }

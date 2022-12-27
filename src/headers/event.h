@@ -2,10 +2,8 @@
 #include "room.h"
 #include "date.h"
 
-class Event {
+class Event : public Entity {
 private:
-	unsigned int eventId = 0;
-	char* name = nullptr;
 	Date* startTime = nullptr;
 	unsigned int runtime = 0;
 	Room* room = nullptr;
@@ -14,8 +12,6 @@ private:
 
 	// - Setters
 
-	void setEventId(unsigned int eventId);
-	void setName(const char* name);
 	void setStartTime(Date* startTime);
 	void setRuntime(unsigned int runtime);
 	void setRoom(Room* room);
@@ -24,8 +20,7 @@ public:
 	// - Public interface
 
 	// - Getters
-	unsigned int getEventId();
-	char* getName();
+
 	Date* getStartTime();
 	unsigned int getRuntime();
 	Room* getRoom();

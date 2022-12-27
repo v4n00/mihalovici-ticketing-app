@@ -3,12 +3,11 @@
 #include <time.h>
 #include "location.h"
 
-// I cannot make this class without an STL so I'm gonna stop here
-
 class Ticket {
 public:
-	char* ticketId;
+	char* id;
 	Event* event;
+	Seat* seat;
 
 	static unsigned int* VALID_TICKETS;
 	static unsigned int NO_VALID_TICKETS;
@@ -28,6 +27,7 @@ public:
 	Event* getEvent();
 
 	// - Constructors / Destructor
+	Ticket(Event& event, Seat& seat);
 	Ticket();
 	~Ticket();
 
