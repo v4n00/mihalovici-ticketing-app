@@ -82,9 +82,19 @@ unsigned int Ticket::getCol() const {
 
 // - Constructor
 
+Ticket::Ticket(const Ticket& anotherTicket) {
+	this->setId(anotherTicket.id);
+	this->setEvent(*anotherTicket.event);
+	this->setCol(anotherTicket.col);
+	this->setRow(anotherTicket.row);
+	++TOTAL_TICKETS;
+}
+
 Ticket::Ticket(Event* event, unsigned int row, unsigned int col, bool reserve) {
 	this->setId(generateId());
 	this->setEvent(*event);
+	this->setCol(col);
+	this->setRow(row);
 	if(reserve = 0)
 		this->event->room->changeSeatAvailability(row, col, SeatAvailability::RESERVED);
 	else
@@ -100,4 +110,54 @@ Ticket::Ticket() {
 Ticket::~Ticket() {
 	delete[] id;
 	--TOTAL_TICKETS;
+}
+
+// Operators
+
+Ticket Ticket::operator=(const Ticket& anotherTicket) {
+	this->setId(anotherTicket.id);
+	this->setEvent(*anotherTicket.event);
+	this->setCol(anotherTicket.col);
+	this->setRow(anotherTicket.row);
+	++TOTAL_TICKETS;
+	return *this;
+}
+
+// string typecast
+
+Ticket::operator std::string() {
+	std::stringstream ss;
+	ss << "Ticket #" << id << " for event \"" << this->event->getName() << "\":" << std::endl
+		<< "- Room name: \"" << this->event->getRoom()->getName() << "\" Room ID: " << this->event->getRoom()->getId() << std::endl
+		<< "- Start time: " << (std::string)(*this->event->getStartTime()) << std::endl
+		<< "- Run time: " << this->event->getRuntime() << " Seat Row: " << this->row << " / Column: " << this->col;
+	return ss.str();
+}
+
+
+std::ostream& operator << (std::ostream& out, const Ticket& ticket) {
+	out << "T" << ticket.id << "-" << ticket.row << "-" << ticket.col << ":" << *(ticket.event);
+	out << ";";
+	return out;
+}
+
+std::istream& operator >> (std::istream& in, Ticket& ticket) {
+	std::string id;
+	std::string row;
+	std::string col;
+	std::string runningEvents;
+	if (std::getline(in, id, 'T') &&
+		std::getline(in, id, '-') &&
+		std::getline(in, row, '-') &&
+		std::getline(in, col, ':')) {
+		ticket.setId(id.c_str());
+	}
+	else throw;
+	ticket.event = new Event();
+	if (!(in >> *(ticket.event)))
+		throw;
+	getline(in, id, ';');
+	ticket.setRow(std::stoi(row));
+	ticket.setCol(std::stoi(col));
+	return in;
 }

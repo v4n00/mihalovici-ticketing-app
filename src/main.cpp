@@ -14,6 +14,8 @@ int main() {
 	file.start();
 	cout << (string)*(file.locations[0].getEvents()[0]) << endl << endl;
 	file.locations[0].getEvents()[0]->getRoom()->printLayout();
+	cout << file.tickets[0];
 	file.end();
+
 	return 0;
 }

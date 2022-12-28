@@ -39,10 +39,26 @@ public:
 
 	// - Constructors / Destructor
 
+	Ticket(const Ticket& anotherTicket);
 	// buys a ticket
 	Ticket(Event* event, unsigned int row, unsigned int col, bool reserve);
 	Ticket();
 	// shouldnt delete anything as tickets and seats should remain
 	~Ticket();
 
+
+	// - Operators
+
+		// copy assignment
+
+	Ticket operator=(const Ticket& anotherTicket);
+
+		// typecast operator
+
+	explicit operator std::string();
+
+		// stream operators
+
+	friend std::ostream& operator << (std::ostream& out, const Ticket& ticket);
+	friend std::istream& operator >> (std::istream& in, Ticket& ticket);
 };

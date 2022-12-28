@@ -7,22 +7,22 @@ void File::start() {
 
 	// if file doesnt exist, make it
 	if (!fp.is_open()) {
-		std::cout << "!!! First Time setup, creating files." << std::endl;
-		Sleep(3);
-		system("CLS");
+		std::cout << "!!! First Time setup, creating files..." << std::endl;
+		Sleep(1);
 		fp.open(filename, fstream::out);
 
 		firstTimeSetup();
 	}
 	// if file exists, work with it
 	else {
-		std::cout << "!!! Load succes." << std::endl;
-		Sleep(3);
-		system("CLS");
+		std::cout << "!!! Loading files..." << std::endl;
 		fp.close();
 		fp.open(filename, fstream::in);
 
 		loadData();
+		std::cout << "!!! Load success." << std::endl;
+		Sleep(1);
+		system("CLS");
 	}
 }
 
@@ -68,8 +68,11 @@ void File::firstTimeSetup() {
 	// add them to the file
 	fp << totalTickets << std::endl;
 	for (size_t i = 0; i < totalTickets; ++i) {
-		//fp << tickets[i] << std::endl;
+		fp << tickets[i] << std::endl;
 	}
+
+	fp.close();
+	start();
 }
 
 void File::loadData() {
@@ -88,7 +91,7 @@ void File::loadData() {
 
 	// read the tickets
 	for (size_t i = 0; i < totalTickets; ++i) {
-		//fp >> tickets[i];
+		fp >> tickets[i];
 	}
 }
 
@@ -107,7 +110,7 @@ void File::end() {
 		}
 		fp << totalTickets << std::endl;
 		for (size_t i = 0; i < totalTickets; ++i) {
-			//fp << tickets[i] << std::endl;
+			fp << tickets[i] << std::endl;
 		}
 	}
 }
