@@ -82,7 +82,7 @@ void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvail
 void Room::checkSeatOverlap(unsigned int row, unsigned int col, SeatAvailability availability) {
 	int factorDeCorectie1 = (numberOfSeats % numberOfRows == 0) ? 0 : (numberOfRows - (numberOfSeats % numberOfRows));
 	int factorDeCorectie2 = seats[0]->getId() - 1 - factorDeCorectie1;
-	int seatIdA = (row * col) + (row - 1) * (getNumberOfColumns() - col) + factorDeCorectie2, newAvailability;
+	int seatIdA = (row * col) + (row - 1) * (getNumberOfColumns() - col) + factorDeCorectie2;
 	for (size_t i = 0; i < this->numberOfSeats; ++i) {
 		if (this->seats[i]->id == seatIdA && this->seats[i]->availability == availability)
 			throw;

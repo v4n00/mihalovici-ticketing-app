@@ -25,6 +25,7 @@ public:
 	
 	// - Getters
 
+	static int getTotalLocations();
 	char* getAddress();
 	Event** getEvents();
 	unsigned int getRunningEvents();

@@ -40,6 +40,10 @@ void Location::addEvent(const char* name, unsigned int runtime, Room& room, unsi
 
 // - Getters
 
+int Location::getTotalLocations() {
+	return Location::TOTAL_LOCATIONS;
+}
+
 Event** Location::getEvents() {
 	return this->events;
 }

@@ -22,6 +22,7 @@
     <ClInclude Include="..\src\headers\date.h" />
     <ClInclude Include="..\src\headers\entity.h" />
     <ClInclude Include="..\src\headers\event.h" />
+    <ClInclude Include="..\src\headers\file.h" />
     <ClInclude Include="..\src\headers\location.h" />
     <ClInclude Include="..\src\headers\menu.h" />
     <ClInclude Include="..\src\headers\room.h" />
@@ -32,6 +33,7 @@
     <ClCompile Include="..\src\cpp\date.cpp" />
     <ClCompile Include="..\src\cpp\entity.cpp" />
     <ClCompile Include="..\src\cpp\event.cpp" />
+    <ClCompile Include="..\src\cpp\file.cpp" />
     <ClCompile Include="..\src\cpp\location.cpp" />
     <ClCompile Include="..\src\cpp\menu.cpp" />
     <ClCompile Include="..\src\cpp\room.cpp" />

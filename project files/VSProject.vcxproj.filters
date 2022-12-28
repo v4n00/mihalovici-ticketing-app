@@ -39,6 +39,9 @@
     <ClInclude Include="..\src\headers\entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\headers\file.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\cpp\event.cpp">
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\cpp\entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\cpp\file.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
