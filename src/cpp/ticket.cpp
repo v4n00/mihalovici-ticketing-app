@@ -60,6 +60,10 @@ void Ticket::payForReservation() {
 
 // - Getters
 
+int Ticket::getTotalTickets() {
+	return Ticket::TOTAL_TICKETS;
+}
+
 char* Ticket::getId() const {
 	return Entity::deepCopy(id, strlen(id) + 1);
 }

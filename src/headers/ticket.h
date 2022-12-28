@@ -31,6 +31,7 @@ public:
 
 	// - Getters
 
+	static int getTotalTickets();
 	char* getId() const;
 	Event* getEvent() const;
 	unsigned int getRow() const;

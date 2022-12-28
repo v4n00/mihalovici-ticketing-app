@@ -7,14 +7,18 @@ void File::start() {
 
 	// if file doesnt exist, make it
 	if (!fp.is_open()) {
-		std::cout << "First Time setup, creating files." << std::endl;
+		std::cout << "!!! First Time setup, creating files." << std::endl;
+		Sleep(3);
+		system("CLS");
 		fp.open(filename, fstream::out);
 
 		firstTimeSetup();
 	}
 	// if file exists, work with it
 	else {
-		std::cout << "Succes." << std::endl;
+		std::cout << "!!! Load succes." << std::endl;
+		Sleep(3);
+		system("CLS");
 		fp.close();
 		fp.open(filename, fstream::in);
 
@@ -39,20 +43,33 @@ void File::firstTimeSetup() {
 	Stadium.addEvent("Croatia v Brazilia", 120, Arena, 30, 14, 12, Month::APRIL, 2023);
 	Stadium.addEvent("Bulgaria v Romania", 120, Arena, 45, 18, 19, Month::APRIL, 2023);
 
+	// Tickets
+	Ticket ticket0(Cinema.getEvents()[0], 2, 2, 1);
+	Ticket ticket1(Cinema.getEvents()[0], 2, 3, 1);
+
 	// make the locations array
 	this->totalLocations = Location::getTotalLocations();
 	this->locations = new Location[totalLocations];
 	locations[0] = Cinema;
 	locations[1] = Stadium;
 
+	// add them to the file
 	fp << totalLocations << std::endl;
 	for (size_t i = 0; i < totalLocations; ++i) {
 		fp << locations[i] << std::endl;
 	}
 
-	// Tickets
-	Ticket ticket1(Cinema.getEvents()[0], 2, 2, 1);
-	Ticket ticket2(Cinema.getEvents()[0], 2, 3, 1);
+	// make the tickets array
+	this->totalTickets = Ticket::getTotalTickets();
+	this->tickets = new Ticket[totalTickets];
+	tickets[0] = ticket0;
+	tickets[1] = ticket1;
+
+	// add them to the file
+	fp << totalTickets << std::endl;
+	for (size_t i = 0; i < totalTickets; ++i) {
+		//fp << tickets[i] << std::endl;
+	}
 }
 
 void File::loadData() {
@@ -64,19 +81,33 @@ void File::loadData() {
 	for (size_t i = 0; i < totalLocations; ++i) {
 		fp >> locations[i];
 	}
+	
+	// read number of tickets and make a ticket array based on that
+	fp >> this->totalTickets;
+	this->tickets = new Ticket[totalTickets];
+
+	// read the tickets
+	for (size_t i = 0; i < totalTickets; ++i) {
+		//fp >> tickets[i];
+	}
 }
 
 void File::end() {
-	// update the file
+	// reopen file in overwrite mode
 	fp.close();
 	fp.open(File::filename, fstream::out | fstream::trunc);
 
+	// rewrite the data
 	if (!fp.is_open())
 		throw;
 	else {
 		fp << totalLocations << std::endl;
 		for (size_t i = 0; i < totalLocations; ++i) {
 			fp << locations[i] << std::endl;
+		}
+		fp << totalTickets << std::endl;
+		for (size_t i = 0; i < totalTickets; ++i) {
+			//fp << tickets[i] << std::endl;
 		}
 	}
 }
