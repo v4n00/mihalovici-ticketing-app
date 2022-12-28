@@ -80,9 +80,7 @@ void Room::changeSeatAvailability(unsigned int seatId, SeatAvailability newAvail
 }
 
 void Room::checkSeatOverlap(unsigned int row, unsigned int col, SeatAvailability availability) {
-	int factorDeCorectie1 = (numberOfSeats % numberOfRows == 0) ? 0 : (numberOfRows - (numberOfSeats % numberOfRows));
-	int factorDeCorectie2 = seats[0]->getId() - 1 - factorDeCorectie1;
-	int seatIdA = (row * col) + (row - 1) * (getNumberOfColumns() - col) + factorDeCorectie2;
+	int seatIdA = getRelativeSeatId(row, col);
 	for (size_t i = 0; i < this->numberOfSeats; ++i) {
 		if (this->seats[i]->id == seatIdA && this->seats[i]->availability == availability)
 			throw;
@@ -90,16 +88,28 @@ void Room::checkSeatOverlap(unsigned int row, unsigned int col, SeatAvailability
 }
 
 void Room::changeSeatAvailability(unsigned int row, unsigned int col, SeatAvailability newAvailability) {
+	this->checkSeatOverlap(row, col, newAvailability);
+	this->changeSeatAvailability(getRelativeSeatId(row, col), newAvailability);
+}
+
+int Room::getRelativeSeatId(unsigned int row, unsigned int col) {
 	// this unironically took me 1 hour to figure out, DO NOT TOUCH
 	// row 3 col 3 => seat 19
 	// row 2 col 4 => seat 12
-
 	// if we have some seats missing from the front this is suppoed to fix that
 	int factorDeCorectie1 = (numberOfSeats % numberOfRows == 0) ? 0 : (numberOfRows - (numberOfSeats % numberOfRows));
 	// method changes the availability based on a relative Seat from all the seats ever created
 	int factorDeCorectie2 = seats[0]->getId() - 1 - factorDeCorectie1;
-	this->checkSeatOverlap(row, col, newAvailability);
-	this->changeSeatAvailability((row*col) + (row-1) * (getNumberOfColumns() - col) + factorDeCorectie2, newAvailability);
+	int rez = (row * col) + (row - 1) * (getNumberOfColumns() - col) + factorDeCorectie2;
+	return rez;
+}
+
+Seat Room::getRelativeSeat(unsigned int row, unsigned int col) {
+	int seatIdA = getRelativeSeatId(row, col);
+	for (size_t i = 0; i < this->numberOfSeats; ++i) {
+		if (this->seats[i]->id == seatIdA)
+			return *this->seats[i];
+	}
 }
 
 Seat** Room::generateRoomOfSeats(unsigned int numberOfSeats) {

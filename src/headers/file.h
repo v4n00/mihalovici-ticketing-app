@@ -24,7 +24,7 @@ public:
 	Ticket* tickets = nullptr;
 	int totalTickets = 0;
 
-	void start();
+	void start(int argc, char** argv);
 	void firstTimeSetup();
 	void loadData();
 	void end();

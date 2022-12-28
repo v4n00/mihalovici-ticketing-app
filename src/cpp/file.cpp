@@ -2,28 +2,27 @@
 
 char File::filename[] = "Data.dat";
 
-void File::start() {
+void File::start(int argc = 1, char** argv = nullptr) {
+	if (argc == 2) strcpy_s(File::filename, strlen(argv[1]) + 1, argv[1]);
 	fp.open(File::filename, fstream::in);
 
 	// if file doesnt exist, make it
 	if (!fp.is_open()) {
 		std::cout << "!!! First Time setup, creating files..." << std::endl;
-		Sleep(1);
+		Sleep(0.5);
 		fp.open(filename, fstream::out);
 
 		firstTimeSetup();
 	}
-	// if file exists, work with it
-	else {
-		std::cout << "!!! Loading files..." << std::endl;
-		fp.close();
-		fp.open(filename, fstream::in);
 
-		loadData();
-		std::cout << "!!! Load success." << std::endl;
-		Sleep(1);
-		system("CLS");
-	}
+	std::cout << "!!! Loading files..." << std::endl;
+	fp.close();
+	fp.open(filename, fstream::in);
+
+	loadData();
+	std::cout << "!!! Load success." << std::endl;
+	Sleep(0.5);
+	system("CLS");
 }
 
 void File::firstTimeSetup() {
@@ -45,7 +44,7 @@ void File::firstTimeSetup() {
 
 	// Tickets
 	Ticket ticket0(Cinema.getEvents()[0], 2, 2, 1);
-	Ticket ticket1(Cinema.getEvents()[0], 2, 3, 1);
+	Ticket ticket1(Cinema.getEvents()[0], 2, 3, 0);
 
 	// make the locations array
 	this->totalLocations = Location::getTotalLocations();
@@ -70,9 +69,6 @@ void File::firstTimeSetup() {
 	for (size_t i = 0; i < totalTickets; ++i) {
 		fp << tickets[i] << std::endl;
 	}
-
-	fp.close();
-	start();
 }
 
 void File::loadData() {

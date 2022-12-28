@@ -26,7 +26,7 @@ public:
 
 	// - Public interface
 
-	static bool isTicketValid(const char* id);
+	static bool isTicketValid(std::string id);
 	void payForReservation();
 
 	// - Getters

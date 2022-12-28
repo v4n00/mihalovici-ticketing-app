@@ -48,7 +48,8 @@ char* Ticket::generateId() {
 
 // - Public interface
 
-bool Ticket::isTicketValid(const char* id) {
+bool Ticket::isTicketValid(std::string id) {
+	std::string valid = VALID_TICKETS;
 	if (VALID_TICKETS.find(id) == std::string::npos)
 		return 0;
 	return 1;
@@ -95,7 +96,7 @@ Ticket::Ticket(Event* event, unsigned int row, unsigned int col, bool reserve) {
 	this->setEvent(*event);
 	this->setCol(col);
 	this->setRow(row);
-	if(reserve = 0)
+	if(reserve == 0)
 		this->event->room->changeSeatAvailability(row, col, SeatAvailability::RESERVED);
 	else
 		this->event->room->changeSeatAvailability(row, col, SeatAvailability::PAID);
@@ -127,10 +128,11 @@ Ticket Ticket::operator=(const Ticket& anotherTicket) {
 
 Ticket::operator std::string() {
 	std::stringstream ss;
+	Seat rez = this->event->getRoom()->getRelativeSeat(row, col);
 	ss << "Ticket #" << id << " for event \"" << this->event->getName() << "\":" << std::endl
 		<< "- Room name: \"" << this->event->getRoom()->getName() << "\" Room ID: " << this->event->getRoom()->getId() << std::endl
-		<< "- Start time: " << (std::string)(*this->event->getStartTime()) << std::endl
-		<< "- Run time: " << this->event->getRuntime() << " Seat Row: " << this->row << " / Column: " << this->col;
+		<< "- Start time: " << (std::string)(*this->event->getStartTime()) << " / Run time: " << this->event->getRuntime() << " minutes" << std::endl
+		<< "- Seat status: " << rez.getAvailability() << ", Row: " << this->row << " / Column : " << this->col;
 	return ss.str();
 }
 
@@ -153,6 +155,7 @@ std::istream& operator >> (std::istream& in, Ticket& ticket) {
 		ticket.setId(id.c_str());
 	}
 	else throw;
+	Ticket::VALID_TICKETS += id;
 	ticket.event = new Event();
 	if (!(in >> *(ticket.event)))
 		throw;

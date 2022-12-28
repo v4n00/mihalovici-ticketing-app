@@ -32,6 +32,8 @@ public:
 	void checkSeatOverlap(unsigned int row, unsigned int col, SeatAvailability newAvailability);
 	// change Seat availability relatively
 	void changeSeatAvailability(unsigned int row, unsigned int col, SeatAvailability newAvailability);
+	int getRelativeSeatId(unsigned int row, unsigned int col);
+	Seat getRelativeSeat(unsigned int row, unsigned int col);
 	static Seat** generateRoomOfSeats(unsigned int numberOfSeats);
 
 	// - Getters
