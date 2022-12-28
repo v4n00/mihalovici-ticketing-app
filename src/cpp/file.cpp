@@ -1,32 +1,28 @@
 #include "../headers/file.h"
 
+char File::filename[] = "Data.dat";
+
 void File::start() {
-	char filename[] = "Data.dat";
-	std::fstream fp;
-	fp.open(filename, fstream::in);
+	fp.open(File::filename, fstream::in);
 
 	// if file doesnt exist, make it
 	if (!fp.is_open()) {
-		std::cout << "First Time setup, creating files.";
-		fp.open(filename, fstream::in | fstream::out | fstream::trunc);
+		std::cout << "First Time setup, creating files." << std::endl;
+		fp.open(filename, fstream::out);
 
-		File::firstTimeSetup(fp);
-
-		fp.close();
+		firstTimeSetup();
 	}
 	// if file exists, work with it
 	else {
-		std::cout << "Succes.";
+		std::cout << "Succes." << std::endl;
 		fp.close();
-		fp.open(filename, fstream::in | fstream::out | fstream::app);
+		fp.open(filename, fstream::in);
 
-
-
-		fp.close();
+		loadData();
 	}
 }
 
-void File::firstTimeSetup(std::fstream& fp) {
+void File::firstTimeSetup() {
 	// Rooms
 	Room Projector1("Projector1", 0, 40, 4, 10);
 	Room Projector2("Projector2", 1, 46, 7, 12);
@@ -43,9 +39,9 @@ void File::firstTimeSetup(std::fstream& fp) {
 	Stadium.addEvent("Croatia v Brazilia", 120, Arena, 30, 14, 12, Month::APRIL, 2023);
 	Stadium.addEvent("Bulgaria v Romania", 120, Arena, 45, 18, 19, Month::APRIL, 2023);
 
-	// Locations Array
-	int totalLocations = Location::getTotalLocations();
-	Location* locations = new Location[totalLocations];
+	// make the locations array
+	this->totalLocations = Location::getTotalLocations();
+	this->locations = new Location[totalLocations];
 	locations[0] = Cinema;
 	locations[1] = Stadium;
 
@@ -57,4 +53,30 @@ void File::firstTimeSetup(std::fstream& fp) {
 	// Tickets
 	Ticket ticket1(Cinema.getEvents()[0], 2, 2, 1);
 	Ticket ticket2(Cinema.getEvents()[0], 2, 3, 1);
+}
+
+void File::loadData() {
+	// read number of locations and make a location array based on that
+	fp >> this->totalLocations;
+	this->locations = new Location[totalLocations];
+
+	// read the locations
+	for (size_t i = 0; i < totalLocations; ++i) {
+		fp >> locations[i];
+	}
+}
+
+void File::end() {
+	// update the file
+	fp.close();
+	fp.open(File::filename, fstream::out | fstream::trunc);
+
+	if (!fp.is_open())
+		throw;
+	else {
+		fp << totalLocations << std::endl;
+		for (size_t i = 0; i < totalLocations; ++i) {
+			fp << locations[i] << std::endl;
+		}
+	}
 }
