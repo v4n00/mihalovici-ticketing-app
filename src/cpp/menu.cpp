@@ -13,6 +13,8 @@ void Menu::end() {
 	file.end();
 }
 
+// sunt constient ca putea fi scris mai bine meniul dar sincer sunt prea obosit sa gandesc in momentul asta
+
 int Menu::node0(int choice = -1) {
 	system("CLS");
 	cout << "--------------------------------" << endl;
@@ -45,7 +47,8 @@ int Menu::node0(int choice = -1) {
 
 void Menu::option1() {
 	int totalLocations = Location::getTotalLocations();
-	int choice;
+	int choice = 0;
+
 	system("CLS");
 	cout << "--------------------------------" << endl;
 	cout << "----- / / Buy / Ticket / / -----" << endl;
@@ -56,31 +59,57 @@ void Menu::option1() {
 	}
 	cout << "00. Back" << endl;
 	cout << "> "; cin >> choice;
-	if (choice > 0 && choice <= totalLocations) {
-		int choice1 = -1;
+	if (choice == 0);
+	else if (choice > 0 && choice <= totalLocations) {
+		int choice1 = choice;
 		while (choice1 != 0)
 			choice1 = option11(choice1);
+		if (choice1 == 0)
+			option1();
 	}
 	else throw std::exception("Please input a correct option");
 }
 
-int Menu::option11(int choice1 = -1) {
-	Location* location = new Location;
-	location = &(this->file.locations[choice1 - 1]);
+int Menu::option11(int choice1) {
+	Location* location = &(this->file.locations[choice1 - 1]);
 	int totalEvents = location->getRunningEvents();
-	int choice;
+	int choice = 0;
+
 	system("CLS");
 	cout << "--------------------------------" << endl;
 	cout << "----- / / Buy / Ticket / / -----" << endl;
 	cout << "--------------------------------" << endl;
 	cout << "Events at " << location->getName() << ": " << totalEvents << endl;
-	/*for (size_t i = 1; i <= totalEvents; ++i) {
-		cout << std::setw(2) << std::right << i << ". " << location->getEvents();
-	}*/
-	cout << std::setw(2) << std::right << ". " << *(location->getEvents());
-	cout << "00. Exit" << endl;
-	cout << "> "; cin >> choice1;
+	for (size_t i = 1; i <= totalEvents; ++i) {
+		cout << std::setw(2) << std::right << i << ". " << location->getEvents()[i - 1]->getName()
+			<< " @ " << (std::string) * (location->getEvents()[i - 1]->getStartTime()) << endl;
+	}
+	cout << "00. Back" << endl;
+	cout << "> "; cin >> choice;
+	if (choice == 0);
+	else if (choice > 0 && choice <= totalEvents) {
+		int choice2 = choice;
+		while (choice2 != 0)
+			choice2 = option12(choice2, *location);
+		if (choice2 == 0)
+			option11(choice1);
+	}
+	else throw std::exception("Please input a correct option");
 	return choice1;
+}
+
+int Menu::option12(int choice2, Location& location) {
+	Event* event = location.getEvents()[choice2 - 1];
+	int choice = 0;
+
+	system("CLS");
+	cout << "--------------------------------" << endl;
+	cout << "----- / / Buy / Ticket / / -----" << endl;
+	cout << "--------------------------------" << endl;
+	event->getRoom()->printLayout();
+	cout << "00. Back" << endl;
+	cout << "> "; cin >> choice;
+	return choice2;
 }
 
 void Menu::option2() {

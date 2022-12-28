@@ -17,6 +17,7 @@ public:
 
 	void option1();
 	int option11(int choice1);
+	int option12(int choice2, Location& location);
 	void option2();
 	void option3();
 };
