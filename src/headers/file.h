@@ -19,9 +19,9 @@ public:
 	static char filename[];
 
 	fstream fp;
-	Location* locations = nullptr;
+	Location** locations = nullptr;
 	int totalLocations = 0;
-	Ticket* tickets = nullptr;
+	Ticket** tickets = nullptr;
 	int totalTickets = 0;
 
 	void start(int argc, char** argv);

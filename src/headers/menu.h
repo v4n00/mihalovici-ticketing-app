@@ -5,6 +5,7 @@
 using std::cout;
 using std::cin;
 using std::endl;
+using std::string;
 
 class Menu {
 public:
@@ -16,8 +17,8 @@ public:
 	int node0(int choice);
 
 	void option1();
-	int option11(int choice1);
-	int option12(int choice2, Location& location);
+	void option11(Location* location);
+	void option12(Event* event);
 	void option2();
 	void option3();
 };
