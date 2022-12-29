@@ -126,10 +126,7 @@ bool Room::getIsVIP() {
 }
 
 Seat** Room::getSeats() {
-	Seat** rez = new Seat * [numberOfSeats];
-	for (size_t i = 0; i < numberOfSeats; ++i)
-		rez[i] = new Seat(*(this->seats[i]));
-	return rez;
+	return this->seats;
 }
 
 unsigned int Room::getNumberOfSeats() {

@@ -34,8 +34,7 @@ unsigned int Event::getRuntime() {
 }
 
 Room* Event::getRoom() {
-	Room* rez = new Room(*this->room);
-	return rez;
+	return this->room;
 }
 
 // - Constructors / Destructor
