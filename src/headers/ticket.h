@@ -9,8 +9,6 @@ public:
 	unsigned int row = 0;
 	unsigned int col = 0;
 
-	static std::string VALID_TICKETS;
-	static unsigned int TOTAL_TICKETS;
 
 	// - Setters
 	void setId(const char* id);
@@ -23,6 +21,8 @@ public:
 	static char* generateId();
 
 public:
+	static std::string VALID_TICKETS;
+	static unsigned int TOTAL_TICKETS;
 
 	// - Public interface
 

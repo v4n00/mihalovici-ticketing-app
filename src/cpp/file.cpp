@@ -55,7 +55,7 @@ void File::firstTimeSetup() {
 	// add them to the file
 	fp << totalLocations << std::endl;
 	for (size_t i = 0; i < totalLocations; ++i) {
-		fp << locations[i] << std::endl;
+		fp << *locations[i] << std::endl;
 	}
 
 	// make the tickets array
@@ -67,27 +67,31 @@ void File::firstTimeSetup() {
 	// add them to the file
 	fp << totalTickets << std::endl;
 	for (size_t i = 0; i < totalTickets; ++i) {
-		fp << tickets[i] << std::endl;
+		fp << *tickets[i] << std::endl;
 	}
 }
 
 void File::loadData() {
 	// read number of locations and make a location array based on that
 	fp >> this->totalLocations;
+	Location::TOTAL_LOCATIONS = totalLocations;
 	this->locations = new Location*[totalLocations];
 
 	// read the locations
 	for (size_t i = 0; i < totalLocations; ++i) {
-		fp >> *locations[i];
+		locations[i] = new Location();
+		fp >> *(locations[i]);
 	}
 	
 	// read number of tickets and make a ticket array based on that
 	fp >> this->totalTickets;
+	Ticket::TOTAL_TICKETS = totalTickets;
 	this->tickets = new Ticket*[totalTickets];
 
 	// read the tickets
 	for (size_t i = 0; i < totalTickets; ++i) {
-		fp >> *tickets[i];
+		tickets[i] = new Ticket();
+		fp >> *(tickets[i]);
 	}
 }
 
@@ -103,12 +107,12 @@ void File::end() {
 		totalLocations = Location::getTotalLocations();
 		fp << totalLocations << std::endl;
 		for (size_t i = 0; i < totalLocations; ++i) {
-			fp << locations[i] << std::endl;
+			fp << *locations[i] << std::endl;
 		}
 		totalTickets = Ticket::getTotalTickets();
 		fp << totalTickets << std::endl;
 		for (size_t i = 0; i < totalTickets; ++i) {
-			fp << tickets[i] << std::endl;
+			fp << *tickets[i] << std::endl;
 		}
 	}
 }

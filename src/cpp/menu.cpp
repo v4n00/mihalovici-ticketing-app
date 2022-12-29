@@ -23,6 +23,7 @@ int Menu::node0(int choice = -1) {
 	cout << "1. Buy a ticket" << endl;
 	cout << "2. Pay for a reserved ticket" << endl;
 	cout << "3. Validate tickets" << endl;
+	// new options
 	cout << "4. Delete Ticket" << endl;
 	cout << "5. Add a location" << endl;
 	cout << "6. Add an event" << endl;
@@ -59,13 +60,13 @@ void Menu::option1() {
 		cout << "--------------------------------" << endl;
 		cout << "Locations: " << totalLocations << endl;
 		for (size_t i = 1; i <= totalLocations; ++i)
-			cout << std::setw(2) << std::right << i << ". " << this->file.locations[i - 1].getName() << endl;
+			cout << std::setw(2) << std::right << i << ". " << this->file.locations[i - 1]->getName() << endl;
 		cout << "00. Back" << endl;
 		cout << "> "; cin >> choice;
 
 		if (choice >= 0 && choice <= totalLocations) {
 			if (choice != 0) {
-				Location* location = &(this->file.locations[choice - 1]);
+				Location* location = this->file.locations[choice - 1];
 				option11(location);
 				choice = 0;
 			}
@@ -121,10 +122,9 @@ void Menu::option12(Event* event) {
 	if (confirmS == 'y' || confirmS == 'Y') confirm = true;
 
 	if (confirm == true) {
-		Ticket* ticketnew = new Ticket(event, row, col, reserve);
-		file.tickets[++Ticket::TOTAL_TICKETS] = *ticketnew;
+		file.tickets[Ticket::TOTAL_TICKETS - 1] = new Ticket(event, row, col, reserve);
 		cout << endl << "Ticket successfully created." << endl;
-		cout << (string)*ticketnew << endl << endl;
+		cout << (string)*(file.tickets[Ticket::TOTAL_TICKETS - 1]) << endl << endl;
 	}
 	system("pause");
 }
@@ -146,8 +146,8 @@ void Menu::option2() {
 	if (isTicketValid == true) {
 		cout << endl << "Ticket is valid!";
 		for (size_t i = 0; i < totalTickets && ok == 0; ++i) {
-			if (this->file.tickets[i].id == id) {
-				this->file.tickets[i].payForReservation();
+			if (this->file.tickets[i]->id == id) {
+				this->file.tickets[i]->payForReservation();
 				ok = 1;
 			}
 		}
@@ -174,8 +174,8 @@ void Menu::option3() {
 	if (isTicketValid == true) {
 		cout << endl << "Ticket is valid!" << endl << endl;
 		for (size_t i = 0; i < totalTickets && ok == 0; ++i) {
-			if (this->file.tickets[i].id == id) {
-				cout << (std::string)this->file.tickets[i];
+			if (this->file.tickets[i]->id == id) {
+				cout << (std::string)*(this->file.tickets[i]);
 				ok = 1;
 			}
 		}

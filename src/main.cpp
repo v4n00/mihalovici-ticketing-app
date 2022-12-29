@@ -4,10 +4,6 @@
 
 using namespace std;
 
-// TODO:
-// menu class
-// exceptions
-
 int main(int argc, char** argv) {
 	Menu menu;
 	menu.start(argc, argv);

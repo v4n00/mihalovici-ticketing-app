@@ -8,7 +8,6 @@ private:
 	Event** events = nullptr;
 	unsigned int runningEvents = 0;
 
-	static unsigned int TOTAL_LOCATIONS;
 
 	// - Setters
 
@@ -17,6 +16,7 @@ private:
 	void setRunningEvents(unsigned int runningEvents);
 
 public:
+	static unsigned int TOTAL_LOCATIONS;
 
 	// - Public Interface
 

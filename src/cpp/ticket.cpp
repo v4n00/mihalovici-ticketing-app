@@ -105,7 +105,6 @@ Ticket::Ticket(Event* event, unsigned int row, unsigned int col, bool reserve) {
 }
 
 Ticket::Ticket() {
-	++TOTAL_TICKETS;
 }
 
 Ticket::~Ticket() {

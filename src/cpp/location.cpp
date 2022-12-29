@@ -79,7 +79,6 @@ Location::Location(const char* name, const char* address, Event** events, unsign
 }
 
 Location::Location() {
-	this->setId(++TOTAL_LOCATIONS);
 }
 
 Location::~Location() {
