@@ -19,6 +19,14 @@ public:
 	void option1();
 	void option11(Location* location);
 	void option12(Event* event);
+
 	void option2();
+
 	void option3();
+
+	void option4();
+	void option41(Location* location);
+	void option42(Event* event);
+	
+	void option5();
 };

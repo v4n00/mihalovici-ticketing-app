@@ -5,8 +5,13 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-	Menu menu;
-	menu.start(argc, argv);
-	menu.end();
+	try {
+		Menu menu;
+		menu.start(argc, argv);
+		menu.end();
+	}
+	catch (exception e) {
+		cout << "Error: " << e.what();
+	}
 	return 0;
 }

@@ -26,7 +26,7 @@ int Menu::node0(int choice = -1) {
 	cout << "3. Add a location" << endl;
 	cout << "4. See a location" << endl;
 	cout << "5. Add an event" << endl;
-	cout << "6. See an event" << endl;
+	cout << "--------------------------------" << endl;
 	cout << "0. Exit & save" << endl;
 	cout << "--------------------------------" << endl;
 	cout << "> "; cin >> choice;
@@ -39,6 +39,10 @@ int Menu::node0(int choice = -1) {
 			option2(); break;
 		case 3:
 			option3(); break;
+		case 4:
+			option4(); break;
+		case 5:
+			option5(); break;
 		case 0:
 			break;
 		default: throw std::exception("how");
@@ -158,4 +162,75 @@ void Menu::option2() {
 	}
 	else cout << endl << "Ticket is NOT valid!" << endl;
 	system("pause");
+}
+
+void Menu::option3() {
+
+}
+
+void Menu::option4() {
+	int choice = -1;
+	int totalLocations = Location::getTotalLocations();
+
+	while (choice != 0) {
+		system("CLS");
+		cout << "--------------------------------" << endl;
+		cout << "---- / / See / Location / / ----" << endl;
+		cout << "--------------------------------" << endl;
+		cout << "Locations: " << totalLocations << endl;
+		for (size_t i = 1; i <= totalLocations; ++i)
+			cout << std::setw(2) << std::right << i << ". " << this->file.locations[i - 1]->getName() << endl;
+		cout << "00. Back" << endl;
+		cout << "> "; cin >> choice;
+
+		if (choice >= 0 && choice <= totalLocations) {
+			if (choice != 0) {
+				Location* location = this->file.locations[choice - 1];
+				option41(location);
+				choice = 0;
+			}
+		}
+		else throw std::exception("Please input a correct character");
+	}
+}
+
+void Menu::option41(Location* location) {
+	int choice = -1;
+	int totalEvents = location->getRunningEvents();
+
+	while (choice != 0) {
+		system("CLS");
+		cout << "--------------------------------" << endl;
+		cout << "---- / / See / Location / / ----" << endl;
+		cout << "--------------------------------" << endl;
+		cout << (string)*location << ": " << endl;
+		for (size_t i = 1; i <= totalEvents; ++i)
+			cout << std::setw(2) << std::right << i << ". " << location->getEvents()[i - 1]->getName()
+			<< " @ " << (std::string) * (location->getEvents()[i - 1]->getStartTime()) << endl;
+		cout << "00. Back" << endl;
+		cout << "> "; cin >> choice;
+
+		if (choice >= 0 && choice <= totalEvents) {
+			if (choice != 0) {
+				Event* event = location->getEvents()[choice - 1];
+				option42(event);
+				choice = 0;
+			}
+		}
+		else throw std::exception("Please input a correct character");
+	}
+}
+
+void Menu::option42(Event* event) {
+	system("CLS");
+	cout << "--------------------------------" << endl;
+	cout << "---- / / See / Location / / ----" << endl;
+	cout << "--------------------------------" << endl;
+	event->getRoom()->printLayout();
+	cout << endl;
+	system("pause");
+}
+
+void Menu::option5() {
+
 }
