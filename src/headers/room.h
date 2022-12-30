@@ -24,6 +24,7 @@ public:
 
 	// - Public interface
 
+	static Room* readRoom(std::ostream& out = std::cout, std::istream& in = std::cin);
 	void setAllSeatsToFree();
 	void printLayout(std::ostream& out = std::cout);
 	// change Seat availability based on seatId

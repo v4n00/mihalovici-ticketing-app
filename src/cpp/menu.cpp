@@ -126,6 +126,8 @@ void Menu::option12(Event* event) {
 	if (confirmS == 'y' || confirmS == 'Y') confirm = true;
 
 	if (confirm == true) {
+		// I really hate how this works but whatever
+		// as rescrie tot at this point but I cba
 		file.tickets[Ticket::TOTAL_TICKETS - 1] = new Ticket(event, row, col, reserve);
 		cout << endl << "Ticket successfully created." << endl;
 		cout << (string)*(file.tickets[Ticket::TOTAL_TICKETS - 1]) << endl << endl;
@@ -232,5 +234,54 @@ void Menu::option42(Event* event) {
 }
 
 void Menu::option5() {
+	int choice = -1;
+	int totalLocations = Location::getTotalLocations();
 
+	while (choice != 0) {
+		system("CLS");
+		cout << "--------------------------------" << endl;
+		cout << "----- / / Add // Event / / -----" << endl;
+		cout << "--------------------------------" << endl;
+		cout << "Locations: " << totalLocations << endl;
+		for (size_t i = 1; i <= totalLocations; ++i)
+			cout << std::setw(2) << std::right << i << ". " << this->file.locations[i - 1]->getName() << endl;
+		cout << "00. Back" << endl;
+		cout << "> "; cin >> choice;
+
+		if (choice >= 0 && choice <= totalLocations) {
+			if (choice != 0) {
+				Location* location = this->file.locations[choice - 1];
+				option51(location);
+				choice = 0;
+			}
+		}
+		else throw std::exception("Please input a correct character");
+	}
+}
+
+void Menu::option51(Location* location) {
+	system("CLS");
+	cout << "--------------------------------" << endl;
+	cout << "----- / / Add // Event / / -----" << endl;
+	cout << "--------------------------------" << endl;
+
+	// VERY HACKY I KNOW BUT IT IS WHAT IT IS
+	std::string name = "";
+	unsigned int runtime = 0;
+	cout << "Event name : "; cin >> name;
+	cout << "Event runtime: "; cin >> runtime;
+	Room* room = Room::readRoom();
+	unsigned int minutes = 0;
+	unsigned int hour = 0;
+	Month month = Month::JANUARY;
+	unsigned int day = 0;
+	unsigned int year = 1970;
+	cout << "Date hour: "; cin >> hour;
+	cout << "Date minutes: "; cin >> minutes;
+	cout << "Date day: "; cin >> day;
+	cout << "Date month: "; cin >> month;
+	cout << "Date year: "; cin >> year;
+	location->addEvent(name.c_str(), runtime, *room, minutes, hour, day, month, year);
+	cout << endl << "Event added successfully." << endl << endl;
+	system("pause");
 }

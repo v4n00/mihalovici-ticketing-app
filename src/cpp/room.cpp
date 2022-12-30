@@ -37,6 +37,21 @@ void Room::setPricePerSeat(unsigned int pricePerSeat) {
 
 // - Public interface
 
+Room* Room::readRoom(std::ostream& out, std::istream& in) {
+	std::string name = "";
+	bool isVIP = false;
+	unsigned int numberOfSeats = 0;
+	unsigned int numberOfRows = 0;
+	unsigned int pricePerSeat = 0;
+	out << "Room name: "; in >> name;
+	out << "Room is VIP? [1/0]: "; in >> isVIP;
+	out << "Room seats: "; in >> numberOfSeats;
+	out << "Room rows: "; in >> numberOfRows;
+	out << "Room price per seat: "; in >> pricePerSeat;
+	Room* room = new Room(name.c_str(), isVIP, numberOfSeats, numberOfRows, pricePerSeat);
+	return room;
+}
+
 void Room::setAllSeatsToFree() {
 	for (size_t i = 0; i < numberOfSeats; ++i) {
 		this->seats[i]->setAvailability(SeatAvailability::FREE);

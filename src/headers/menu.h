@@ -29,4 +29,5 @@ public:
 	void option42(Event* event);
 	
 	void option5();
+	void option51(Location* location);
 };
