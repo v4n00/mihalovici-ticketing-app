@@ -51,9 +51,6 @@ private:
 
 public:
 
-	// - Public interface
-	static Date* readDate(std::ostream& out = std::cout, std::istream& in = std::cin);
-
 	// - Getters
 
 	unsigned int getMinutes();

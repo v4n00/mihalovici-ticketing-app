@@ -140,6 +140,7 @@ void Menu::option2() {
 	cout << "--------------------------------" << endl;
 	cout << "----- / / See / ticket / / -----" << endl;
 	cout << "--------------------------------" << endl;
+	cout << "Insert ticket id" << endl;
 	cout << "> "; cin >> id;
 
 	if (id.size() == 8) {
@@ -173,7 +174,7 @@ void Menu::option3() {
 	string name;
 	string address;
 	cout << "Location name : "; cin >> name;
-	cout << "Location runtime: "; cin >> address;
+	cout << "Location address: "; cin >> address;
 	file.locations[Location::TOTAL_LOCATIONS - 1] = new Location(name.c_str(), address.c_str(), nullptr, 0);
 	cout << endl << "Location successfully created." << endl << endl;
 	system("pause");
@@ -285,11 +286,11 @@ void Menu::option51(Location* location) {
 	Month month = Month::JANUARY;
 	unsigned int day = 0;
 	unsigned int year = 1970;
-	cout << "Date hour: "; cin >> hour;
-	cout << "Date minutes: "; cin >> minutes;
-	cout << "Date day: "; cin >> day;
-	cout << "Date month: "; cin >> month;
-	cout << "Date year: "; cin >> year;
+	cout << "Date hour [0-23]: "; cin >> hour;
+	cout << "Date minutes [1-60]: "; cin >> minutes;
+	cout << "Date day [1-31]: "; cin >> day;
+	cout << "Date month [1-12]: "; cin >> month;
+	cout << "Date year [1970-2050]: "; cin >> year;
 	location->addEvent(name.c_str(), runtime, *room, minutes, hour, day, month, year);
 	cout << endl << "Event added successfully." << endl << endl;
 	system("pause");

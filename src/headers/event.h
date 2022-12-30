@@ -17,8 +17,6 @@ private:
 	void setRoom(Room* room);
 
 public:
-	// - Public interface
-	static Event* readEvent(std::ostream& out = std::cout, std::istream& in = std::cin);
 
 	// - Getters
 
