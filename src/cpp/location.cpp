@@ -11,16 +11,13 @@ void Location::setAddress(const char* address) {
 }
 
 void Location::setEvents(Event** events) {
-	if (events != nullptr) {
-		this->events = new Event * [runningEvents];
-		for (size_t i = 0; i < runningEvents; ++i)
-			this->events[i] = new Event(*(events[i]));
-	}
-	else throw;
+	this->events = new Event * [runningEvents];
+	for (size_t i = 0; i < runningEvents; ++i)
+		this->events[i] = new Event(*(events[i]));
 }
 
 void Location::setRunningEvents(unsigned int runningEvents) {
-	if (runningEvents != 0)
+	if (runningEvents >= 0)
 		this->runningEvents = runningEvents;
 	else throw;
 }

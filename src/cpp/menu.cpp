@@ -22,7 +22,6 @@ int Menu::node0(int choice = -1) {
 	cout << "--------------------------------" << endl;
 	cout << "1. Add a ticket" << endl;
 	cout << "2. See a ticket" << endl;
-	// new options
 	cout << "3. Add a location" << endl;
 	cout << "4. See a location" << endl;
 	cout << "5. Add an event" << endl;
@@ -167,7 +166,17 @@ void Menu::option2() {
 }
 
 void Menu::option3() {
-
+	system("CLS");
+	cout << "--------------------------------" << endl;
+	cout << "---- / / Add / Location / / ----" << endl;
+	cout << "--------------------------------" << endl;
+	string name;
+	string address;
+	cout << "Location name : "; cin >> name;
+	cout << "Location runtime: "; cin >> address;
+	file.locations[Location::TOTAL_LOCATIONS - 1] = new Location(name.c_str(), address.c_str(), nullptr, 0);
+	cout << endl << "Location successfully created." << endl << endl;
+	system("pause");
 }
 
 void Menu::option4() {
